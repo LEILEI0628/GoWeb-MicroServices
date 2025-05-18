@@ -1,6 +1,10 @@
-GOHOSTOS:=$(shell go env GOHOSTOS)
+SERVICE_NAME := interactive
+
 GOPATH:=$(shell go env GOPATH)
 VERSION=$(shell git describe --tags --always)
+PROJECT_ROOT := $(shell cd ../../ && pwd)
+BIN_DIR := $(PROJECT_ROOT)/bin
+GOHOSTOS:=$(shell go env GOHOSTOS)
 
 ifeq ($(GOHOSTOS), windows)
 	#the `find.exe` is different from `find` in bash/shell.
@@ -22,40 +26,52 @@ init:
 	go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
 	go install github.com/go-kratos/kratos/cmd/kratos/v2@latest
 	go install github.com/go-kratos/kratos/cmd/protoc-gen-go-http/v2@latest
-	go install github.com/google/gnostic/cmd/protoc-gen-openapi@latest
+	#go install github.com/google/gnostic/cmd/protoc-gen-openapi@latest
 	go install github.com/google/wire/cmd/wire@latest
 
-PROJECT_ROOT := $(shell pwd)
-PROTO_DEST_DIR := api
-# 新增第三方依赖路径变量
-PROTO_INCLUDE := -I$(PROJECT_ROOT)/third_party
-.PHONY: all
-all: generate build
+.PHONY: config
+# generate internal proto
+config:
+	protoc --proto_path=./internal \
+		   --proto_path=$(PROJECT_ROOT)/third_party \
+ 	       --go_out=paths=source_relative:./internal \
+	       $(INTERNAL_PROTO_FILES)
 
-# 生成所有 API 代码
-.PHONY: generate
-generate:
-	@find ./api -name '*.proto' -print0 | xargs -0 -t -I{} protoc \
-		-I./api \
-		-I./third_party \
-		--go_out=paths=source_relative:$(PROJECT_ROOT)/$(PROTO_DEST_DIR) \
-		--go-http_out=paths=source_relative:$(PROJECT_ROOT)/$(PROTO_DEST_DIR) \
-		--go-grpc_out=paths=source_relative:$(PROJECT_ROOT)/$(PROTO_DEST_DIR) \
-		--validate_out=paths=source_relative,lang=go:$(PROJECT_ROOT)/$(PROTO_DEST_DIR) {}
+.PHONY: wire
+# generate wire
+wire:
+	cd cmd/server && wire
 
-# 递归执行子目录的 make
 .PHONY: build
 build:
-	@for dir in $(shell find app -name Makefile); do \
-		(cd `dirname $$dir` && make all); \
-	done
+	@echo "Building $(SERVICE_NAME)..."
+	@mkdir -p $(BIN_DIR)
+	@go build -o $(BIN_DIR)/$(SERVICE_NAME) ./cmd/server
+
+# 单独生成该服务的 API 代码
+.PHONY: generate
+generate:
+	@protoc \
+		-I$(PROJECT_ROOT)/api \
+		-I$(PROJECT_ROOT)/third_party \
+		--go_out=paths=source_relative:$(PROJECT_ROOT)/api \
+		--go-http_out=paths=source_relative:$(PROJECT_ROOT)/api \
+		--go-grpc_out=paths=source_relative:$(PROJECT_ROOT)/api \
+		--validate_out=paths=source_relative,lang=go:$(PROJECT_ROOT)/api \
+		$(PROJECT_ROOT)/api/$(SERVICE_NAME)/v1/*.proto
 
 .PHONY: clean
 clean:
-	@rm -rf bin/*
+	@rm -f $(BIN_DIR)/$(SERVICE_NAME)
 	@find . -name '*.pb.go' -delete
-	@find . -name '*_http.pb.go' -delete
-	@find . -name '*_grpc.pb.go' -delete
+
+.PHONY: all
+# generate all
+all:
+	make generate;
+	make wire;
+	make config;
+	make build;
 
 # show help
 help:

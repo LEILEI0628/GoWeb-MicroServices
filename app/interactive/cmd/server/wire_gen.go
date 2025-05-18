@@ -7,8 +7,8 @@
 package main
 
 import (
-	"github.com/LEILEI0628/GoWeb-MicroServices/app/user/internal/conf"
-	"github.com/LEILEI0628/GoWeb-MicroServices/app/user/internal/server"
+	"github.com/LEILEI0628/GoWeb-MicroServices/app/interactive/internal/conf"
+	"github.com/LEILEI0628/GoWeb-MicroServices/app/interactive/internal/server"
 	"github.com/go-kratos/kratos/v2"
 	"github.com/go-kratos/kratos/v2/log"
 )

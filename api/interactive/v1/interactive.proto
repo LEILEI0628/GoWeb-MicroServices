@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package api.interactive.v1;
+
+option go_package = "github.com/LEILEI0628/GoWeb-MicroServices/api/interactive/v1;v1";
+
+service Interactive {
+	rpc CreateInteractive (CreateInteractiveRequest) returns (CreateInteractiveReply);
+	rpc UpdateInteractive (UpdateInteractiveRequest) returns (UpdateInteractiveReply);
+	rpc DeleteInteractive (DeleteInteractiveRequest) returns (DeleteInteractiveReply);
+	rpc GetInteractive (GetInteractiveRequest) returns (GetInteractiveReply);
+	rpc ListInteractive (ListInteractiveRequest) returns (ListInteractiveReply);
+}
+
+message CreateInteractiveRequest {}
+message CreateInteractiveReply {}
+
+message UpdateInteractiveRequest {}
+message UpdateInteractiveReply {}
+
+message DeleteInteractiveRequest {}
+message DeleteInteractiveReply {}
+
+message GetInteractiveRequest {}
+message GetInteractiveReply {}
+
+message ListInteractiveRequest {}
+message ListInteractiveReply {}

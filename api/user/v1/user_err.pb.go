@@ -24,19 +24,19 @@ const (
 type UserError int32
 
 const (
-	UserError_GREETER_UNSPECIFIED UserError = 0
-	UserError_USER_NOT_FOUND      UserError = 1
+	UserError_User_UNSPECIFIED UserError = 0
+	UserError_USER_NOT_FOUND   UserError = 1
 )
 
 // Enum value maps for UserError.
 var (
 	UserError_name = map[int32]string{
-		0: "GREETER_UNSPECIFIED",
+		0: "User_UNSPECIFIED",
 		1: "USER_NOT_FOUND",
 	}
 	UserError_value = map[string]int32{
-		"GREETER_UNSPECIFIED": 0,
-		"USER_NOT_FOUND":      1,
+		"User_UNSPECIFIED": 0,
+		"USER_NOT_FOUND":   1,
 	}
 )
 
@@ -71,9 +71,9 @@ var File_user_v1_user_err_proto protoreflect.FileDescriptor
 
 const file_user_v1_user_err_proto_rawDesc = "" +
 	"\n" +
-	"\x16user/v1/user_err.proto\x12\vapi.user.v1*8\n" +
-	"\tUserError\x12\x17\n" +
-	"\x13GREETER_UNSPECIFIED\x10\x00\x12\x12\n" +
+	"\x16user/v1/user_err.proto\x12\vapi.user.v1*5\n" +
+	"\tUserError\x12\x14\n" +
+	"\x10User_UNSPECIFIED\x10\x00\x12\x12\n" +
 	"\x0eUSER_NOT_FOUND\x10\x01B:Z8github.com/LEILEI0628/GoWeb-MicroServices/api/user/v1;v1b\x06proto3"
 
 var (

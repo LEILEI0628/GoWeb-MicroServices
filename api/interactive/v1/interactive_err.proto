@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+
+package api.interactive.v1;
+
+option go_package = "github.com/LEILEI0628/GoWeb-MicroServices/api/interactive/v1;v1";
+
+enum InteractiveError {
+	// 0: 未知错误
+	INTERACTIVE_UNSPECIFIED = 0;
+}

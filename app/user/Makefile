@@ -29,6 +29,11 @@ init:
 	#go install github.com/google/gnostic/cmd/protoc-gen-openapi@latest
 	go install github.com/google/wire/cmd/wire@latest
 
+.PHONY: wire
+# generate wire
+wire:
+	cd cmd/server && wire
+
 .PHONY: config
 # generate internal proto
 config:
@@ -63,9 +68,10 @@ clean:
 .PHONY: all
 # generate all
 all:
+	make generate;
+	make wire;
 	make config;
 	make build;
-	make generate;
 
 # show help
 help:

@@ -1,8 +1,7 @@
 package server
 
 import (
-	"github.com/LEILEI0628/GoWeb-MicroServices/app/user/internal/conf"
-
+	"github.com/LEILEI0628/GoWeb-MicroServices/app/interactive/internal/conf"
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/go-kratos/kratos/v2/middleware/recovery"
 	"github.com/go-kratos/kratos/v2/transport/grpc"
