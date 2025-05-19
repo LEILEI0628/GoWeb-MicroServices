@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: goweb
+spec: # specification：规格说明
+  replicas: 1 # 副本数量
+  selector:
+    matchLabels:
+      app: goweb
+  template: # 用于描述POD
+    metadata:
+      labels:
+        app: goweb
+    spec: # POD的具体信息
+      containers:
+        - name: goweb
+          image: goweb:v0.0.1
+          ports:
+            - containerPort: 8080
+
+# kubectl apply -f k8s-goweb-deployment.yaml
+# kubectl get deployments
+# kubectl get pods

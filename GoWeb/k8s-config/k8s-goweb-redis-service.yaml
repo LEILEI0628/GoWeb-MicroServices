@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: goweb-redis
+spec:
+  selector:
+    app: goweb-redis
+  ports:
+    - protocol: TCP
+      port: 16379 # 访问端口（服务本身）
+      targetPort: 6379 # POD端口
+      nodePort: 30011 # NodePort模式的访问端口
+  type: NodePort
+
+# kubectl apply -f k8s-goweb-redis-deployment.yaml
+# kubectl apply -f k8s-goweb-redis-service.yaml
+# kubectl get [pv|pvc|pod|service]

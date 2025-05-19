@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: PersistentVolumeClaim # 需要的卷 声明
+metadata:
+  name: goweb-mysql-claim
+spec:
+  storageClassName: manual # 通过storageClassName匹配pv
+  accessModes: # 如何访问pv
+#    - ReadWriteMany # 多（POD）读写
+    - ReadWriteOnce # 一读写
+#    - ReadOnlyMany # 多读一写
+  resources:
+    requests:
+      storage: 1Gi # 1GB

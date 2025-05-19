@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: goweb-ingress
+spec:
+#  使用nginx
+  ingressClassName: nginx
+  rules:
+#    host是goweb.com时命中
+    - host: goweb.com
+      http:
+        paths:
+#          - 请求路径的前缀是/时
+#          - 将流量转发到goweb服务上，端口是8081
+          - backend:
+              service:
+                name: goweb
+                port:
+                  number: 8081
+            pathType: Prefix
+            path: /

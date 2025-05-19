@@ -1,0 +1,15 @@
+apiVersion: v1 # Mac系统重启Docker后数据会丢失
+kind: PersistentVolume # 实际存在的卷
+metadata:
+  name: goweb-mysql-pv
+spec:
+  storageClassName: manual
+  persistentVolumeReclaimPolicy: Retain
+  accessModes: # pv支持何种访问方式
+#    - ReadWriteMany # 多（POD）读写
+    - ReadWriteOnce # 一读写
+#    - ReadOnlyMany # 多读一写
+  capacity:
+    storage: 1Gi # 1GB
+  hostPath:  # 明确使用 hostPath 类型
+    path: "/mnt/mysql" # 宿主机上的真实路径

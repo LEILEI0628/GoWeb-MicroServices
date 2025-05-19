@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: goweb-mysql
+spec:
+  selector:
+    app: goweb-mysql
+  ports:
+    - protocol: TCP
+      port: 13306 # 访问端口（服务本身）
+      targetPort: 3306 # POD端口
+      nodePort: 30001 # NodePort模式的访问端口
+  type: NodePort
+
+# kubectl apply -f k8s-goweb-mysql-persistent-volume.yaml
+# kubectl apply -f k8s-goweb-mysql-persistent-volume-claim.yaml
+# kubectl apply -f k8s-goweb-mysql-deployment.yaml
+# kubectl apply -f k8s-goweb-mysql-service.yaml
+# kubectl get [pv|pvc|pod|service]

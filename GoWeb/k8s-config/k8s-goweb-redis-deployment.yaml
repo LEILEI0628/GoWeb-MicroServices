@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: goweb-redis
+  labels:
+    app: goweb-redis
+spec:
+  replicas: 1 # 有状态的服务不能轻易replicas
+  selector:
+    matchLabels:
+      app: goweb-redis
+  template:
+    metadata:
+      name: goweb-redis
+      labels:
+        app: goweb-redis
+    spec:
+      restartPolicy: Always
+      containers:
+        - name: goweb-redis
+          image: redis:latest
+          imagePullPolicy: IfNotPresent

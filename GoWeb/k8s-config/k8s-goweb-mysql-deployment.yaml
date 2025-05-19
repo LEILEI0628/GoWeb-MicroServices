@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: goweb-mysql
+  labels:
+    app: goweb-mysql
+spec:
+  replicas: 1 # 有状态的服务不能轻易replicas
+  selector:
+    matchLabels:
+      app: goweb-mysql
+  template:
+    metadata:
+      name: goweb-mysql
+      labels:
+        app: goweb-mysql
+    spec:
+      restartPolicy: Always
+      containers:
+        - name: goweb-mysql
+          image: mysql:8.0
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: "20010628"
+          imagePullPolicy: IfNotPresent
+          volumeMounts: # 指定挂载哪个持久化卷
+            - mountPath: /var/lib/mysql # 对应到数据库存储的位置
+              name: mysql-storage
+          ports:
+            - containerPort: 3306 # POD暴露的端口
+
+      volumes: # POD中的持久化卷
+        - name: mysql-storage
+          persistentVolumeClaim:
+            claimName: goweb-mysql-claim
+      

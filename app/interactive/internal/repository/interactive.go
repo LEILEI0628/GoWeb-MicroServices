@@ -167,17 +167,6 @@ func (c *CachedReadCntRepository) Get(ctx context.Context,
 	return itr, nil
 }
 
-// UpdateCnt 这不是好的实践
-func (c *CachedReadCntRepository) UpdateCnt(itr *po.Interactive) {
-	itr.LikeCnt = 30
-}
-
-// UpdateCntV1 凑合的实践
-func (c *CachedReadCntRepository) UpdateCntV1(itr po.Interactive) po.Interactive {
-	itr.LikeCnt = 30
-	return itr
-}
-
 // 正常来说，参数必然不用指针：方法不要修改参数，通过返回值来修改参数
 // 返回值就看情况。如果是指针实现了接口，那么就返回指针
 // 如果返回值很大，你不想值传递引发复制问题，那么还是返回指针
@@ -192,15 +181,4 @@ func (c *CachedReadCntRepository) toDomain(itr po.Interactive) domain.Interactiv
 		CollectCnt: itr.CollectCnt,
 		ReadCnt:    itr.ReadCnt,
 	}
-}
-
-func (c *CachedReadCntRepository) GetCollection() (domain.Collection, error) {
-	items, err := c.dao.(*dao.GORMInteractiveDAO).GetItems()
-	if err != nil {
-		return domain.Collection{}, err
-	}
-	// 用 items 来构造一个 Collection
-	return domain.Collection{
-		Name: items[0].Cname,
-	}, nil
 }
