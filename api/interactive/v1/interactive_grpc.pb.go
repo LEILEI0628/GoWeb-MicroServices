@@ -19,253 +19,297 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	Interactive_CreateInteractive_FullMethodName = "/api.interactive.v1.Interactive/CreateInteractive"
-	Interactive_UpdateInteractive_FullMethodName = "/api.interactive.v1.Interactive/UpdateInteractive"
-	Interactive_DeleteInteractive_FullMethodName = "/api.interactive.v1.Interactive/DeleteInteractive"
-	Interactive_GetInteractive_FullMethodName    = "/api.interactive.v1.Interactive/GetInteractive"
-	Interactive_ListInteractive_FullMethodName   = "/api.interactive.v1.Interactive/ListInteractive"
+	InteractiveService_IncrReadCnt_FullMethodName = "/api.interactive.v1.InteractiveService/IncrReadCnt"
+	InteractiveService_Like_FullMethodName        = "/api.interactive.v1.InteractiveService/Like"
+	InteractiveService_CancelLike_FullMethodName  = "/api.interactive.v1.InteractiveService/CancelLike"
+	InteractiveService_Collect_FullMethodName     = "/api.interactive.v1.InteractiveService/Collect"
+	InteractiveService_Get_FullMethodName         = "/api.interactive.v1.InteractiveService/Get"
+	InteractiveService_GetByIds_FullMethodName    = "/api.interactive.v1.InteractiveService/GetByIds"
 )
 
-// InteractiveClient is the client API for Interactive service.
+// InteractiveServiceClient is the client API for InteractiveService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type InteractiveClient interface {
-	CreateInteractive(ctx context.Context, in *CreateInteractiveRequest, opts ...grpc.CallOption) (*CreateInteractiveReply, error)
-	UpdateInteractive(ctx context.Context, in *UpdateInteractiveRequest, opts ...grpc.CallOption) (*UpdateInteractiveReply, error)
-	DeleteInteractive(ctx context.Context, in *DeleteInteractiveRequest, opts ...grpc.CallOption) (*DeleteInteractiveReply, error)
-	GetInteractive(ctx context.Context, in *GetInteractiveRequest, opts ...grpc.CallOption) (*GetInteractiveReply, error)
-	ListInteractive(ctx context.Context, in *ListInteractiveRequest, opts ...grpc.CallOption) (*ListInteractiveReply, error)
+type InteractiveServiceClient interface {
+	IncrReadCnt(ctx context.Context, in *IncrReadCntRequest, opts ...grpc.CallOption) (*IncrReadCntResponse, error)
+	// Like 点赞
+	Like(ctx context.Context, in *LikeRequest, opts ...grpc.CallOption) (*LikeResponse, error)
+	// CancelLike 取消点赞
+	CancelLike(ctx context.Context, in *CancelLikeRequest, opts ...grpc.CallOption) (*CancelLikeResponse, error)
+	// Collect 收藏
+	Collect(ctx context.Context, in *CollectRequest, opts ...grpc.CallOption) (*CollectResponse, error)
+	Get(ctx context.Context, in *GetRequest, opts ...grpc.CallOption) (*GetResponse, error)
+	GetByIds(ctx context.Context, in *GetByIdsRequest, opts ...grpc.CallOption) (*GetByIdsResponse, error)
 }
 
-type interactiveClient struct {
+type interactiveServiceClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewInteractiveClient(cc grpc.ClientConnInterface) InteractiveClient {
-	return &interactiveClient{cc}
+func NewInteractiveServiceClient(cc grpc.ClientConnInterface) InteractiveServiceClient {
+	return &interactiveServiceClient{cc}
 }
 
-func (c *interactiveClient) CreateInteractive(ctx context.Context, in *CreateInteractiveRequest, opts ...grpc.CallOption) (*CreateInteractiveReply, error) {
+func (c *interactiveServiceClient) IncrReadCnt(ctx context.Context, in *IncrReadCntRequest, opts ...grpc.CallOption) (*IncrReadCntResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(CreateInteractiveReply)
-	err := c.cc.Invoke(ctx, Interactive_CreateInteractive_FullMethodName, in, out, cOpts...)
+	out := new(IncrReadCntResponse)
+	err := c.cc.Invoke(ctx, InteractiveService_IncrReadCnt_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *interactiveClient) UpdateInteractive(ctx context.Context, in *UpdateInteractiveRequest, opts ...grpc.CallOption) (*UpdateInteractiveReply, error) {
+func (c *interactiveServiceClient) Like(ctx context.Context, in *LikeRequest, opts ...grpc.CallOption) (*LikeResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(UpdateInteractiveReply)
-	err := c.cc.Invoke(ctx, Interactive_UpdateInteractive_FullMethodName, in, out, cOpts...)
+	out := new(LikeResponse)
+	err := c.cc.Invoke(ctx, InteractiveService_Like_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *interactiveClient) DeleteInteractive(ctx context.Context, in *DeleteInteractiveRequest, opts ...grpc.CallOption) (*DeleteInteractiveReply, error) {
+func (c *interactiveServiceClient) CancelLike(ctx context.Context, in *CancelLikeRequest, opts ...grpc.CallOption) (*CancelLikeResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(DeleteInteractiveReply)
-	err := c.cc.Invoke(ctx, Interactive_DeleteInteractive_FullMethodName, in, out, cOpts...)
+	out := new(CancelLikeResponse)
+	err := c.cc.Invoke(ctx, InteractiveService_CancelLike_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *interactiveClient) GetInteractive(ctx context.Context, in *GetInteractiveRequest, opts ...grpc.CallOption) (*GetInteractiveReply, error) {
+func (c *interactiveServiceClient) Collect(ctx context.Context, in *CollectRequest, opts ...grpc.CallOption) (*CollectResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(GetInteractiveReply)
-	err := c.cc.Invoke(ctx, Interactive_GetInteractive_FullMethodName, in, out, cOpts...)
+	out := new(CollectResponse)
+	err := c.cc.Invoke(ctx, InteractiveService_Collect_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *interactiveClient) ListInteractive(ctx context.Context, in *ListInteractiveRequest, opts ...grpc.CallOption) (*ListInteractiveReply, error) {
+func (c *interactiveServiceClient) Get(ctx context.Context, in *GetRequest, opts ...grpc.CallOption) (*GetResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(ListInteractiveReply)
-	err := c.cc.Invoke(ctx, Interactive_ListInteractive_FullMethodName, in, out, cOpts...)
+	out := new(GetResponse)
+	err := c.cc.Invoke(ctx, InteractiveService_Get_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// InteractiveServer is the server API for Interactive service.
-// All implementations must embed UnimplementedInteractiveServer
+func (c *interactiveServiceClient) GetByIds(ctx context.Context, in *GetByIdsRequest, opts ...grpc.CallOption) (*GetByIdsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetByIdsResponse)
+	err := c.cc.Invoke(ctx, InteractiveService_GetByIds_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// InteractiveServiceServer is the server API for InteractiveService service.
+// All implementations must embed UnimplementedInteractiveServiceServer
 // for forward compatibility.
-type InteractiveServer interface {
-	CreateInteractive(context.Context, *CreateInteractiveRequest) (*CreateInteractiveReply, error)
-	UpdateInteractive(context.Context, *UpdateInteractiveRequest) (*UpdateInteractiveReply, error)
-	DeleteInteractive(context.Context, *DeleteInteractiveRequest) (*DeleteInteractiveReply, error)
-	GetInteractive(context.Context, *GetInteractiveRequest) (*GetInteractiveReply, error)
-	ListInteractive(context.Context, *ListInteractiveRequest) (*ListInteractiveReply, error)
-	mustEmbedUnimplementedInteractiveServer()
+type InteractiveServiceServer interface {
+	IncrReadCnt(context.Context, *IncrReadCntRequest) (*IncrReadCntResponse, error)
+	// Like 点赞
+	Like(context.Context, *LikeRequest) (*LikeResponse, error)
+	// CancelLike 取消点赞
+	CancelLike(context.Context, *CancelLikeRequest) (*CancelLikeResponse, error)
+	// Collect 收藏
+	Collect(context.Context, *CollectRequest) (*CollectResponse, error)
+	Get(context.Context, *GetRequest) (*GetResponse, error)
+	GetByIds(context.Context, *GetByIdsRequest) (*GetByIdsResponse, error)
+	mustEmbedUnimplementedInteractiveServiceServer()
 }
 
-// UnimplementedInteractiveServer must be embedded to have
+// UnimplementedInteractiveServiceServer must be embedded to have
 // forward compatible implementations.
 //
 // NOTE: this should be embedded by value instead of pointer to avoid a nil
 // pointer dereference when methods are called.
-type UnimplementedInteractiveServer struct{}
+type UnimplementedInteractiveServiceServer struct{}
 
-func (UnimplementedInteractiveServer) CreateInteractive(context.Context, *CreateInteractiveRequest) (*CreateInteractiveReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateInteractive not implemented")
+func (UnimplementedInteractiveServiceServer) IncrReadCnt(context.Context, *IncrReadCntRequest) (*IncrReadCntResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method IncrReadCnt not implemented")
 }
-func (UnimplementedInteractiveServer) UpdateInteractive(context.Context, *UpdateInteractiveRequest) (*UpdateInteractiveReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateInteractive not implemented")
+func (UnimplementedInteractiveServiceServer) Like(context.Context, *LikeRequest) (*LikeResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Like not implemented")
 }
-func (UnimplementedInteractiveServer) DeleteInteractive(context.Context, *DeleteInteractiveRequest) (*DeleteInteractiveReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DeleteInteractive not implemented")
+func (UnimplementedInteractiveServiceServer) CancelLike(context.Context, *CancelLikeRequest) (*CancelLikeResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CancelLike not implemented")
 }
-func (UnimplementedInteractiveServer) GetInteractive(context.Context, *GetInteractiveRequest) (*GetInteractiveReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetInteractive not implemented")
+func (UnimplementedInteractiveServiceServer) Collect(context.Context, *CollectRequest) (*CollectResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Collect not implemented")
 }
-func (UnimplementedInteractiveServer) ListInteractive(context.Context, *ListInteractiveRequest) (*ListInteractiveReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ListInteractive not implemented")
+func (UnimplementedInteractiveServiceServer) Get(context.Context, *GetRequest) (*GetResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Get not implemented")
 }
-func (UnimplementedInteractiveServer) mustEmbedUnimplementedInteractiveServer() {}
-func (UnimplementedInteractiveServer) testEmbeddedByValue()                     {}
+func (UnimplementedInteractiveServiceServer) GetByIds(context.Context, *GetByIdsRequest) (*GetByIdsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetByIds not implemented")
+}
+func (UnimplementedInteractiveServiceServer) mustEmbedUnimplementedInteractiveServiceServer() {}
+func (UnimplementedInteractiveServiceServer) testEmbeddedByValue()                            {}
 
-// UnsafeInteractiveServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to InteractiveServer will
+// UnsafeInteractiveServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to InteractiveServiceServer will
 // result in compilation errors.
-type UnsafeInteractiveServer interface {
-	mustEmbedUnimplementedInteractiveServer()
+type UnsafeInteractiveServiceServer interface {
+	mustEmbedUnimplementedInteractiveServiceServer()
 }
 
-func RegisterInteractiveServer(s grpc.ServiceRegistrar, srv InteractiveServer) {
-	// If the following call pancis, it indicates UnimplementedInteractiveServer was
+func RegisterInteractiveServiceServer(s grpc.ServiceRegistrar, srv InteractiveServiceServer) {
+	// If the following call pancis, it indicates UnimplementedInteractiveServiceServer was
 	// embedded by pointer and is nil.  This will cause panics if an
 	// unimplemented method is ever invoked, so we test this at initialization
 	// time to prevent it from happening at runtime later due to I/O.
 	if t, ok := srv.(interface{ testEmbeddedByValue() }); ok {
 		t.testEmbeddedByValue()
 	}
-	s.RegisterService(&Interactive_ServiceDesc, srv)
+	s.RegisterService(&InteractiveService_ServiceDesc, srv)
 }
 
-func _Interactive_CreateInteractive_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreateInteractiveRequest)
+func _InteractiveService_IncrReadCnt_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(IncrReadCntRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(InteractiveServer).CreateInteractive(ctx, in)
+		return srv.(InteractiveServiceServer).IncrReadCnt(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Interactive_CreateInteractive_FullMethodName,
+		FullMethod: InteractiveService_IncrReadCnt_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(InteractiveServer).CreateInteractive(ctx, req.(*CreateInteractiveRequest))
+		return srv.(InteractiveServiceServer).IncrReadCnt(ctx, req.(*IncrReadCntRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Interactive_UpdateInteractive_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdateInteractiveRequest)
+func _InteractiveService_Like_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(LikeRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(InteractiveServer).UpdateInteractive(ctx, in)
+		return srv.(InteractiveServiceServer).Like(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Interactive_UpdateInteractive_FullMethodName,
+		FullMethod: InteractiveService_Like_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(InteractiveServer).UpdateInteractive(ctx, req.(*UpdateInteractiveRequest))
+		return srv.(InteractiveServiceServer).Like(ctx, req.(*LikeRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Interactive_DeleteInteractive_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(DeleteInteractiveRequest)
+func _InteractiveService_CancelLike_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CancelLikeRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(InteractiveServer).DeleteInteractive(ctx, in)
+		return srv.(InteractiveServiceServer).CancelLike(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Interactive_DeleteInteractive_FullMethodName,
+		FullMethod: InteractiveService_CancelLike_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(InteractiveServer).DeleteInteractive(ctx, req.(*DeleteInteractiveRequest))
+		return srv.(InteractiveServiceServer).CancelLike(ctx, req.(*CancelLikeRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Interactive_GetInteractive_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetInteractiveRequest)
+func _InteractiveService_Collect_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CollectRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(InteractiveServer).GetInteractive(ctx, in)
+		return srv.(InteractiveServiceServer).Collect(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Interactive_GetInteractive_FullMethodName,
+		FullMethod: InteractiveService_Collect_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(InteractiveServer).GetInteractive(ctx, req.(*GetInteractiveRequest))
+		return srv.(InteractiveServiceServer).Collect(ctx, req.(*CollectRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Interactive_ListInteractive_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ListInteractiveRequest)
+func _InteractiveService_Get_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(InteractiveServer).ListInteractive(ctx, in)
+		return srv.(InteractiveServiceServer).Get(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Interactive_ListInteractive_FullMethodName,
+		FullMethod: InteractiveService_Get_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(InteractiveServer).ListInteractive(ctx, req.(*ListInteractiveRequest))
+		return srv.(InteractiveServiceServer).Get(ctx, req.(*GetRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// Interactive_ServiceDesc is the grpc.ServiceDesc for Interactive service.
+func _InteractiveService_GetByIds_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetByIdsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(InteractiveServiceServer).GetByIds(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: InteractiveService_GetByIds_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(InteractiveServiceServer).GetByIds(ctx, req.(*GetByIdsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// InteractiveService_ServiceDesc is the grpc.ServiceDesc for InteractiveService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var Interactive_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "api.interactive.v1.Interactive",
-	HandlerType: (*InteractiveServer)(nil),
+var InteractiveService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "api.interactive.v1.InteractiveService",
+	HandlerType: (*InteractiveServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "CreateInteractive",
-			Handler:    _Interactive_CreateInteractive_Handler,
+			MethodName: "IncrReadCnt",
+			Handler:    _InteractiveService_IncrReadCnt_Handler,
 		},
 		{
-			MethodName: "UpdateInteractive",
-			Handler:    _Interactive_UpdateInteractive_Handler,
+			MethodName: "Like",
+			Handler:    _InteractiveService_Like_Handler,
 		},
 		{
-			MethodName: "DeleteInteractive",
-			Handler:    _Interactive_DeleteInteractive_Handler,
+			MethodName: "CancelLike",
+			Handler:    _InteractiveService_CancelLike_Handler,
 		},
 		{
-			MethodName: "GetInteractive",
-			Handler:    _Interactive_GetInteractive_Handler,
+			MethodName: "Collect",
+			Handler:    _InteractiveService_Collect_Handler,
 		},
 		{
-			MethodName: "ListInteractive",
-			Handler:    _Interactive_ListInteractive_Handler,
+			MethodName: "Get",
+			Handler:    _InteractiveService_Get_Handler,
+		},
+		{
+			MethodName: "GetByIds",
+			Handler:    _InteractiveService_GetByIds_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

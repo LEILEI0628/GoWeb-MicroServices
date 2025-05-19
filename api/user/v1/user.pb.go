@@ -395,8 +395,8 @@ const file_user_v1_user_proto_rawDesc = "" +
 	"\x0eGetUserRequest\"\x0e\n" +
 	"\fGetUserReply\"\x11\n" +
 	"\x0fListUserRequest\"\x0f\n" +
-	"\rListUserReply2\xf3\x02\n" +
-	"\x04User\x12J\n" +
+	"\rListUserReply2\xfa\x02\n" +
+	"\vUserService\x12J\n" +
 	"\n" +
 	"CreateUser\x12\x1e.api.user.v1.CreateUserRequest\x1a\x1c.api.user.v1.CreateUserReply\x12J\n" +
 	"\n" +
@@ -432,16 +432,16 @@ var file_user_v1_user_proto_goTypes = []any{
 	(*ListUserReply)(nil),     // 9: api.user.v1.ListUserReply
 }
 var file_user_v1_user_proto_depIdxs = []int32{
-	0, // 0: api.user.v1.User.CreateUser:input_type -> api.user.v1.CreateUserRequest
-	2, // 1: api.user.v1.User.UpdateUser:input_type -> api.user.v1.UpdateUserRequest
-	4, // 2: api.user.v1.User.DeleteUser:input_type -> api.user.v1.DeleteUserRequest
-	6, // 3: api.user.v1.User.GetUser:input_type -> api.user.v1.GetUserRequest
-	8, // 4: api.user.v1.User.ListUser:input_type -> api.user.v1.ListUserRequest
-	1, // 5: api.user.v1.User.CreateUser:output_type -> api.user.v1.CreateUserReply
-	3, // 6: api.user.v1.User.UpdateUser:output_type -> api.user.v1.UpdateUserReply
-	5, // 7: api.user.v1.User.DeleteUser:output_type -> api.user.v1.DeleteUserReply
-	7, // 8: api.user.v1.User.GetUser:output_type -> api.user.v1.GetUserReply
-	9, // 9: api.user.v1.User.ListUser:output_type -> api.user.v1.ListUserReply
+	0, // 0: api.user.v1.UserService.CreateUser:input_type -> api.user.v1.CreateUserRequest
+	2, // 1: api.user.v1.UserService.UpdateUser:input_type -> api.user.v1.UpdateUserRequest
+	4, // 2: api.user.v1.UserService.DeleteUser:input_type -> api.user.v1.DeleteUserRequest
+	6, // 3: api.user.v1.UserService.GetUser:input_type -> api.user.v1.GetUserRequest
+	8, // 4: api.user.v1.UserService.ListUser:input_type -> api.user.v1.ListUserRequest
+	1, // 5: api.user.v1.UserService.CreateUser:output_type -> api.user.v1.CreateUserReply
+	3, // 6: api.user.v1.UserService.UpdateUser:output_type -> api.user.v1.UpdateUserReply
+	5, // 7: api.user.v1.UserService.DeleteUser:output_type -> api.user.v1.DeleteUserReply
+	7, // 8: api.user.v1.UserService.GetUser:output_type -> api.user.v1.GetUserReply
+	9, // 9: api.user.v1.UserService.ListUser:output_type -> api.user.v1.ListUserReply
 	5, // [5:10] is the sub-list for method output_type
 	0, // [0:5] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name

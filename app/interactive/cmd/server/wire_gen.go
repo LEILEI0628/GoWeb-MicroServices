@@ -8,9 +8,15 @@ package main
 
 import (
 	"github.com/LEILEI0628/GoWeb-MicroServices/app/interactive/internal/conf"
+	"github.com/LEILEI0628/GoWeb-MicroServices/app/interactive/internal/ioc"
+	"github.com/LEILEI0628/GoWeb-MicroServices/app/interactive/internal/repository"
+	"github.com/LEILEI0628/GoWeb-MicroServices/app/interactive/internal/repository/cache"
+	"github.com/LEILEI0628/GoWeb-MicroServices/app/interactive/internal/repository/dao"
 	"github.com/LEILEI0628/GoWeb-MicroServices/app/interactive/internal/server"
+	"github.com/LEILEI0628/GoWeb-MicroServices/app/interactive/internal/service"
 	"github.com/go-kratos/kratos/v2"
 	"github.com/go-kratos/kratos/v2/log"
+	"github.com/google/wire"
 )
 
 import (
@@ -20,10 +26,28 @@ import (
 // Injectors from wire.go:
 
 // wireApp init kratos application.
-func wireApp(confServer *conf.Server, data *conf.Data, logger log.Logger) (*kratos.App, func(), error) {
-	grpcServer := server.NewGRPCServer(confServer, logger)
+func wireApp(logger log.Logger, confServer *conf.Server, bootstrap *conf.Bootstrap) (*kratos.App, func(), error) {
+	loggerxLogger := ioc.InitGlobalLogger()
+	db := ioc.InitDB(bootstrap, loggerxLogger)
+	interactiveDAO := dao.NewGORMInteractiveDAO(db)
+	cmdable := ioc.InitRedis(bootstrap)
+	interactiveCache := cache.NewRedisInteractiveCache(cmdable)
+	interactiveRepositoryInterface := repository.NewCachedInteractiveRepository(interactiveDAO, interactiveCache, loggerxLogger)
+	interactiveServiceInterface := service.NewInteractiveService(interactiveRepositoryInterface, loggerxLogger)
+	grpcServer := server.NewGRPCServer(confServer, interactiveServiceInterface)
 	httpServer := server.NewHTTPServer(confServer, logger)
 	app := newApp(logger, grpcServer, httpServer)
 	return app, func() {
 	}, nil
 }
+
+// wire.go:
+
+// thirdPartySet 基础依赖
+var thirdPartySet = wire.NewSet(ioc.InitDB, ioc.InitGlobalLogger, ioc.InitKafka, ioc.InitRedis)
+
+// interactiveSvcProvider 业务依赖
+var interactiveSvcProvider = wire.NewSet(service.NewInteractiveService, repository.NewCachedInteractiveRepository, dao.NewGORMInteractiveDAO, cache.NewRedisInteractiveCache)
+
+// providerSet is server providers.
+var providerSet = wire.NewSet(server.NewGRPCServer, server.NewHTTPServer)

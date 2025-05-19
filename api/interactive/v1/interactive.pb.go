@@ -21,26 +21,28 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-type CreateInteractiveRequest struct {
+type GetByIdsRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
+	Biz           string                 `protobuf:"bytes,1,opt,name=biz,proto3" json:"biz,omitempty"`
+	Ids           []int64                `protobuf:"varint,2,rep,packed,name=ids,proto3" json:"ids,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *CreateInteractiveRequest) Reset() {
-	*x = CreateInteractiveRequest{}
+func (x *GetByIdsRequest) Reset() {
+	*x = GetByIdsRequest{}
 	mi := &file_interactive_v1_interactive_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *CreateInteractiveRequest) String() string {
+func (x *GetByIdsRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*CreateInteractiveRequest) ProtoMessage() {}
+func (*GetByIdsRequest) ProtoMessage() {}
 
-func (x *CreateInteractiveRequest) ProtoReflect() protoreflect.Message {
+func (x *GetByIdsRequest) ProtoReflect() protoreflect.Message {
 	mi := &file_interactive_v1_interactive_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -52,31 +54,46 @@ func (x *CreateInteractiveRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use CreateInteractiveRequest.ProtoReflect.Descriptor instead.
-func (*CreateInteractiveRequest) Descriptor() ([]byte, []int) {
+// Deprecated: Use GetByIdsRequest.ProtoReflect.Descriptor instead.
+func (*GetByIdsRequest) Descriptor() ([]byte, []int) {
 	return file_interactive_v1_interactive_proto_rawDescGZIP(), []int{0}
 }
 
-type CreateInteractiveReply struct {
+func (x *GetByIdsRequest) GetBiz() string {
+	if x != nil {
+		return x.Biz
+	}
+	return ""
+}
+
+func (x *GetByIdsRequest) GetIds() []int64 {
+	if x != nil {
+		return x.Ids
+	}
+	return nil
+}
+
+type GetByIdsResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
+	Intrs         map[int64]*Interactive `protobuf:"bytes,1,rep,name=intrs,proto3" json:"intrs,omitempty" protobuf_key:"varint,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *CreateInteractiveReply) Reset() {
-	*x = CreateInteractiveReply{}
+func (x *GetByIdsResponse) Reset() {
+	*x = GetByIdsResponse{}
 	mi := &file_interactive_v1_interactive_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *CreateInteractiveReply) String() string {
+func (x *GetByIdsResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*CreateInteractiveReply) ProtoMessage() {}
+func (*GetByIdsResponse) ProtoMessage() {}
 
-func (x *CreateInteractiveReply) ProtoReflect() protoreflect.Message {
+func (x *GetByIdsResponse) ProtoReflect() protoreflect.Message {
 	mi := &file_interactive_v1_interactive_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -88,31 +105,42 @@ func (x *CreateInteractiveReply) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use CreateInteractiveReply.ProtoReflect.Descriptor instead.
-func (*CreateInteractiveReply) Descriptor() ([]byte, []int) {
+// Deprecated: Use GetByIdsResponse.ProtoReflect.Descriptor instead.
+func (*GetByIdsResponse) Descriptor() ([]byte, []int) {
 	return file_interactive_v1_interactive_proto_rawDescGZIP(), []int{1}
 }
 
-type UpdateInteractiveRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
+func (x *GetByIdsResponse) GetIntrs() map[int64]*Interactive {
+	if x != nil {
+		return x.Intrs
+	}
+	return nil
+}
+
+type GetRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	Biz   string                 `protobuf:"bytes,1,opt,name=biz,proto3" json:"biz,omitempty"`
+	// protobuf 推荐下划线，可以用驼峰
+	BizId         int64 `protobuf:"varint,2,opt,name=biz_id,json=bizId,proto3" json:"biz_id,omitempty"`
+	Uid           int64 `protobuf:"varint,3,opt,name=uid,proto3" json:"uid,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *UpdateInteractiveRequest) Reset() {
-	*x = UpdateInteractiveRequest{}
+func (x *GetRequest) Reset() {
+	*x = GetRequest{}
 	mi := &file_interactive_v1_interactive_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *UpdateInteractiveRequest) String() string {
+func (x *GetRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*UpdateInteractiveRequest) ProtoMessage() {}
+func (*GetRequest) ProtoMessage() {}
 
-func (x *UpdateInteractiveRequest) ProtoReflect() protoreflect.Message {
+func (x *GetRequest) ProtoReflect() protoreflect.Message {
 	mi := &file_interactive_v1_interactive_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -124,31 +152,53 @@ func (x *UpdateInteractiveRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use UpdateInteractiveRequest.ProtoReflect.Descriptor instead.
-func (*UpdateInteractiveRequest) Descriptor() ([]byte, []int) {
+// Deprecated: Use GetRequest.ProtoReflect.Descriptor instead.
+func (*GetRequest) Descriptor() ([]byte, []int) {
 	return file_interactive_v1_interactive_proto_rawDescGZIP(), []int{2}
 }
 
-type UpdateInteractiveReply struct {
+func (x *GetRequest) GetBiz() string {
+	if x != nil {
+		return x.Biz
+	}
+	return ""
+}
+
+func (x *GetRequest) GetBizId() int64 {
+	if x != nil {
+		return x.BizId
+	}
+	return 0
+}
+
+func (x *GetRequest) GetUid() int64 {
+	if x != nil {
+		return x.Uid
+	}
+	return 0
+}
+
+type GetResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
+	Intr          *Interactive           `protobuf:"bytes,1,opt,name=intr,proto3" json:"intr,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *UpdateInteractiveReply) Reset() {
-	*x = UpdateInteractiveReply{}
+func (x *GetResponse) Reset() {
+	*x = GetResponse{}
 	mi := &file_interactive_v1_interactive_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *UpdateInteractiveReply) String() string {
+func (x *GetResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*UpdateInteractiveReply) ProtoMessage() {}
+func (*GetResponse) ProtoMessage() {}
 
-func (x *UpdateInteractiveReply) ProtoReflect() protoreflect.Message {
+func (x *GetResponse) ProtoReflect() protoreflect.Message {
 	mi := &file_interactive_v1_interactive_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -160,31 +210,45 @@ func (x *UpdateInteractiveReply) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use UpdateInteractiveReply.ProtoReflect.Descriptor instead.
-func (*UpdateInteractiveReply) Descriptor() ([]byte, []int) {
+// Deprecated: Use GetResponse.ProtoReflect.Descriptor instead.
+func (*GetResponse) Descriptor() ([]byte, []int) {
 	return file_interactive_v1_interactive_proto_rawDescGZIP(), []int{3}
 }
 
-type DeleteInteractiveRequest struct {
+func (x *GetResponse) GetIntr() *Interactive {
+	if x != nil {
+		return x.Intr
+	}
+	return nil
+}
+
+type Interactive struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
+	Biz           string                 `protobuf:"bytes,1,opt,name=biz,proto3" json:"biz,omitempty"`
+	BizId         int64                  `protobuf:"varint,2,opt,name=biz_id,json=bizId,proto3" json:"biz_id,omitempty"`
+	ReadCnt       int64                  `protobuf:"varint,3,opt,name=read_cnt,json=readCnt,proto3" json:"read_cnt,omitempty"`
+	LikeCnt       int64                  `protobuf:"varint,4,opt,name=like_cnt,json=likeCnt,proto3" json:"like_cnt,omitempty"`
+	CollectCnt    int64                  `protobuf:"varint,5,opt,name=collect_cnt,json=collectCnt,proto3" json:"collect_cnt,omitempty"`
+	Liked         bool                   `protobuf:"varint,6,opt,name=liked,proto3" json:"liked,omitempty"`
+	Collected     bool                   `protobuf:"varint,7,opt,name=collected,proto3" json:"collected,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *DeleteInteractiveRequest) Reset() {
-	*x = DeleteInteractiveRequest{}
+func (x *Interactive) Reset() {
+	*x = Interactive{}
 	mi := &file_interactive_v1_interactive_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *DeleteInteractiveRequest) String() string {
+func (x *Interactive) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*DeleteInteractiveRequest) ProtoMessage() {}
+func (*Interactive) ProtoMessage() {}
 
-func (x *DeleteInteractiveRequest) ProtoReflect() protoreflect.Message {
+func (x *Interactive) ProtoReflect() protoreflect.Message {
 	mi := &file_interactive_v1_interactive_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -196,31 +260,84 @@ func (x *DeleteInteractiveRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use DeleteInteractiveRequest.ProtoReflect.Descriptor instead.
-func (*DeleteInteractiveRequest) Descriptor() ([]byte, []int) {
+// Deprecated: Use Interactive.ProtoReflect.Descriptor instead.
+func (*Interactive) Descriptor() ([]byte, []int) {
 	return file_interactive_v1_interactive_proto_rawDescGZIP(), []int{4}
 }
 
-type DeleteInteractiveReply struct {
+func (x *Interactive) GetBiz() string {
+	if x != nil {
+		return x.Biz
+	}
+	return ""
+}
+
+func (x *Interactive) GetBizId() int64 {
+	if x != nil {
+		return x.BizId
+	}
+	return 0
+}
+
+func (x *Interactive) GetReadCnt() int64 {
+	if x != nil {
+		return x.ReadCnt
+	}
+	return 0
+}
+
+func (x *Interactive) GetLikeCnt() int64 {
+	if x != nil {
+		return x.LikeCnt
+	}
+	return 0
+}
+
+func (x *Interactive) GetCollectCnt() int64 {
+	if x != nil {
+		return x.CollectCnt
+	}
+	return 0
+}
+
+func (x *Interactive) GetLiked() bool {
+	if x != nil {
+		return x.Liked
+	}
+	return false
+}
+
+func (x *Interactive) GetCollected() bool {
+	if x != nil {
+		return x.Collected
+	}
+	return false
+}
+
+type CollectRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
+	Biz           string                 `protobuf:"bytes,1,opt,name=biz,proto3" json:"biz,omitempty"`
+	BizId         int64                  `protobuf:"varint,2,opt,name=biz_id,json=bizId,proto3" json:"biz_id,omitempty"`
+	Uid           int64                  `protobuf:"varint,3,opt,name=uid,proto3" json:"uid,omitempty"`
+	Cid           int64                  `protobuf:"varint,4,opt,name=cid,proto3" json:"cid,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *DeleteInteractiveReply) Reset() {
-	*x = DeleteInteractiveReply{}
+func (x *CollectRequest) Reset() {
+	*x = CollectRequest{}
 	mi := &file_interactive_v1_interactive_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *DeleteInteractiveReply) String() string {
+func (x *CollectRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*DeleteInteractiveReply) ProtoMessage() {}
+func (*CollectRequest) ProtoMessage() {}
 
-func (x *DeleteInteractiveReply) ProtoReflect() protoreflect.Message {
+func (x *CollectRequest) ProtoReflect() protoreflect.Message {
 	mi := &file_interactive_v1_interactive_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -232,31 +349,59 @@ func (x *DeleteInteractiveReply) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use DeleteInteractiveReply.ProtoReflect.Descriptor instead.
-func (*DeleteInteractiveReply) Descriptor() ([]byte, []int) {
+// Deprecated: Use CollectRequest.ProtoReflect.Descriptor instead.
+func (*CollectRequest) Descriptor() ([]byte, []int) {
 	return file_interactive_v1_interactive_proto_rawDescGZIP(), []int{5}
 }
 
-type GetInteractiveRequest struct {
+func (x *CollectRequest) GetBiz() string {
+	if x != nil {
+		return x.Biz
+	}
+	return ""
+}
+
+func (x *CollectRequest) GetBizId() int64 {
+	if x != nil {
+		return x.BizId
+	}
+	return 0
+}
+
+func (x *CollectRequest) GetUid() int64 {
+	if x != nil {
+		return x.Uid
+	}
+	return 0
+}
+
+func (x *CollectRequest) GetCid() int64 {
+	if x != nil {
+		return x.Cid
+	}
+	return 0
+}
+
+type CollectResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *GetInteractiveRequest) Reset() {
-	*x = GetInteractiveRequest{}
+func (x *CollectResponse) Reset() {
+	*x = CollectResponse{}
 	mi := &file_interactive_v1_interactive_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *GetInteractiveRequest) String() string {
+func (x *CollectResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*GetInteractiveRequest) ProtoMessage() {}
+func (*CollectResponse) ProtoMessage() {}
 
-func (x *GetInteractiveRequest) ProtoReflect() protoreflect.Message {
+func (x *CollectResponse) ProtoReflect() protoreflect.Message {
 	mi := &file_interactive_v1_interactive_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -268,31 +413,34 @@ func (x *GetInteractiveRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use GetInteractiveRequest.ProtoReflect.Descriptor instead.
-func (*GetInteractiveRequest) Descriptor() ([]byte, []int) {
+// Deprecated: Use CollectResponse.ProtoReflect.Descriptor instead.
+func (*CollectResponse) Descriptor() ([]byte, []int) {
 	return file_interactive_v1_interactive_proto_rawDescGZIP(), []int{6}
 }
 
-type GetInteractiveReply struct {
+type CancelLikeRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
+	Biz           string                 `protobuf:"bytes,1,opt,name=biz,proto3" json:"biz,omitempty"`
+	BizId         int64                  `protobuf:"varint,2,opt,name=biz_id,json=bizId,proto3" json:"biz_id,omitempty"`
+	Uid           int64                  `protobuf:"varint,3,opt,name=uid,proto3" json:"uid,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *GetInteractiveReply) Reset() {
-	*x = GetInteractiveReply{}
+func (x *CancelLikeRequest) Reset() {
+	*x = CancelLikeRequest{}
 	mi := &file_interactive_v1_interactive_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *GetInteractiveReply) String() string {
+func (x *CancelLikeRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*GetInteractiveReply) ProtoMessage() {}
+func (*CancelLikeRequest) ProtoMessage() {}
 
-func (x *GetInteractiveReply) ProtoReflect() protoreflect.Message {
+func (x *CancelLikeRequest) ProtoReflect() protoreflect.Message {
 	mi := &file_interactive_v1_interactive_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -304,31 +452,52 @@ func (x *GetInteractiveReply) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use GetInteractiveReply.ProtoReflect.Descriptor instead.
-func (*GetInteractiveReply) Descriptor() ([]byte, []int) {
+// Deprecated: Use CancelLikeRequest.ProtoReflect.Descriptor instead.
+func (*CancelLikeRequest) Descriptor() ([]byte, []int) {
 	return file_interactive_v1_interactive_proto_rawDescGZIP(), []int{7}
 }
 
-type ListInteractiveRequest struct {
+func (x *CancelLikeRequest) GetBiz() string {
+	if x != nil {
+		return x.Biz
+	}
+	return ""
+}
+
+func (x *CancelLikeRequest) GetBizId() int64 {
+	if x != nil {
+		return x.BizId
+	}
+	return 0
+}
+
+func (x *CancelLikeRequest) GetUid() int64 {
+	if x != nil {
+		return x.Uid
+	}
+	return 0
+}
+
+type CancelLikeResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *ListInteractiveRequest) Reset() {
-	*x = ListInteractiveRequest{}
+func (x *CancelLikeResponse) Reset() {
+	*x = CancelLikeResponse{}
 	mi := &file_interactive_v1_interactive_proto_msgTypes[8]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *ListInteractiveRequest) String() string {
+func (x *CancelLikeResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*ListInteractiveRequest) ProtoMessage() {}
+func (*CancelLikeResponse) ProtoMessage() {}
 
-func (x *ListInteractiveRequest) ProtoReflect() protoreflect.Message {
+func (x *CancelLikeResponse) ProtoReflect() protoreflect.Message {
 	mi := &file_interactive_v1_interactive_proto_msgTypes[8]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -340,31 +509,34 @@ func (x *ListInteractiveRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use ListInteractiveRequest.ProtoReflect.Descriptor instead.
-func (*ListInteractiveRequest) Descriptor() ([]byte, []int) {
+// Deprecated: Use CancelLikeResponse.ProtoReflect.Descriptor instead.
+func (*CancelLikeResponse) Descriptor() ([]byte, []int) {
 	return file_interactive_v1_interactive_proto_rawDescGZIP(), []int{8}
 }
 
-type ListInteractiveReply struct {
+type LikeRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
+	Biz           string                 `protobuf:"bytes,1,opt,name=biz,proto3" json:"biz,omitempty"`
+	BizId         int64                  `protobuf:"varint,2,opt,name=biz_id,json=bizId,proto3" json:"biz_id,omitempty"`
+	Uid           int64                  `protobuf:"varint,3,opt,name=uid,proto3" json:"uid,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *ListInteractiveReply) Reset() {
-	*x = ListInteractiveReply{}
+func (x *LikeRequest) Reset() {
+	*x = LikeRequest{}
 	mi := &file_interactive_v1_interactive_proto_msgTypes[9]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *ListInteractiveReply) String() string {
+func (x *LikeRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*ListInteractiveReply) ProtoMessage() {}
+func (*LikeRequest) ProtoMessage() {}
 
-func (x *ListInteractiveReply) ProtoReflect() protoreflect.Message {
+func (x *LikeRequest) ProtoReflect() protoreflect.Message {
 	mi := &file_interactive_v1_interactive_proto_msgTypes[9]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -376,32 +548,214 @@ func (x *ListInteractiveReply) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use ListInteractiveReply.ProtoReflect.Descriptor instead.
-func (*ListInteractiveReply) Descriptor() ([]byte, []int) {
+// Deprecated: Use LikeRequest.ProtoReflect.Descriptor instead.
+func (*LikeRequest) Descriptor() ([]byte, []int) {
 	return file_interactive_v1_interactive_proto_rawDescGZIP(), []int{9}
+}
+
+func (x *LikeRequest) GetBiz() string {
+	if x != nil {
+		return x.Biz
+	}
+	return ""
+}
+
+func (x *LikeRequest) GetBizId() int64 {
+	if x != nil {
+		return x.BizId
+	}
+	return 0
+}
+
+func (x *LikeRequest) GetUid() int64 {
+	if x != nil {
+		return x.Uid
+	}
+	return 0
+}
+
+type LikeResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *LikeResponse) Reset() {
+	*x = LikeResponse{}
+	mi := &file_interactive_v1_interactive_proto_msgTypes[10]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *LikeResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*LikeResponse) ProtoMessage() {}
+
+func (x *LikeResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_interactive_v1_interactive_proto_msgTypes[10]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use LikeResponse.ProtoReflect.Descriptor instead.
+func (*LikeResponse) Descriptor() ([]byte, []int) {
+	return file_interactive_v1_interactive_proto_rawDescGZIP(), []int{10}
+}
+
+type IncrReadCntRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Biz           string                 `protobuf:"bytes,1,opt,name=biz,proto3" json:"biz,omitempty"`
+	BizId         int64                  `protobuf:"varint,2,opt,name=biz_id,json=bizId,proto3" json:"biz_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *IncrReadCntRequest) Reset() {
+	*x = IncrReadCntRequest{}
+	mi := &file_interactive_v1_interactive_proto_msgTypes[11]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *IncrReadCntRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*IncrReadCntRequest) ProtoMessage() {}
+
+func (x *IncrReadCntRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_interactive_v1_interactive_proto_msgTypes[11]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use IncrReadCntRequest.ProtoReflect.Descriptor instead.
+func (*IncrReadCntRequest) Descriptor() ([]byte, []int) {
+	return file_interactive_v1_interactive_proto_rawDescGZIP(), []int{11}
+}
+
+func (x *IncrReadCntRequest) GetBiz() string {
+	if x != nil {
+		return x.Biz
+	}
+	return ""
+}
+
+func (x *IncrReadCntRequest) GetBizId() int64 {
+	if x != nil {
+		return x.BizId
+	}
+	return 0
+}
+
+type IncrReadCntResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *IncrReadCntResponse) Reset() {
+	*x = IncrReadCntResponse{}
+	mi := &file_interactive_v1_interactive_proto_msgTypes[12]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *IncrReadCntResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*IncrReadCntResponse) ProtoMessage() {}
+
+func (x *IncrReadCntResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_interactive_v1_interactive_proto_msgTypes[12]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use IncrReadCntResponse.ProtoReflect.Descriptor instead.
+func (*IncrReadCntResponse) Descriptor() ([]byte, []int) {
+	return file_interactive_v1_interactive_proto_rawDescGZIP(), []int{12}
 }
 
 var File_interactive_v1_interactive_proto protoreflect.FileDescriptor
 
 const file_interactive_v1_interactive_proto_rawDesc = "" +
 	"\n" +
-	" interactive/v1/interactive.proto\x12\x12api.interactive.v1\"\x1a\n" +
-	"\x18CreateInteractiveRequest\"\x18\n" +
-	"\x16CreateInteractiveReply\"\x1a\n" +
-	"\x18UpdateInteractiveRequest\"\x18\n" +
-	"\x16UpdateInteractiveReply\"\x1a\n" +
-	"\x18DeleteInteractiveRequest\"\x18\n" +
-	"\x16DeleteInteractiveReply\"\x17\n" +
-	"\x15GetInteractiveRequest\"\x15\n" +
-	"\x13GetInteractiveReply\"\x18\n" +
-	"\x16ListInteractiveRequest\"\x16\n" +
-	"\x14ListInteractiveReply2\xa9\x04\n" +
-	"\vInteractive\x12m\n" +
-	"\x11CreateInteractive\x12,.api.interactive.v1.CreateInteractiveRequest\x1a*.api.interactive.v1.CreateInteractiveReply\x12m\n" +
-	"\x11UpdateInteractive\x12,.api.interactive.v1.UpdateInteractiveRequest\x1a*.api.interactive.v1.UpdateInteractiveReply\x12m\n" +
-	"\x11DeleteInteractive\x12,.api.interactive.v1.DeleteInteractiveRequest\x1a*.api.interactive.v1.DeleteInteractiveReply\x12d\n" +
-	"\x0eGetInteractive\x12).api.interactive.v1.GetInteractiveRequest\x1a'.api.interactive.v1.GetInteractiveReply\x12g\n" +
-	"\x0fListInteractive\x12*.api.interactive.v1.ListInteractiveRequest\x1a(.api.interactive.v1.ListInteractiveReplyBAZ?github.com/LEILEI0628/GoWeb-MicroServices/api/interactive/v1;v1b\x06proto3"
+	" interactive/v1/interactive.proto\x12\x12api.interactive.v1\"5\n" +
+	"\x0fGetByIdsRequest\x12\x10\n" +
+	"\x03biz\x18\x01 \x01(\tR\x03biz\x12\x10\n" +
+	"\x03ids\x18\x02 \x03(\x03R\x03ids\"\xb4\x01\n" +
+	"\x10GetByIdsResponse\x12E\n" +
+	"\x05intrs\x18\x01 \x03(\v2/.api.interactive.v1.GetByIdsResponse.IntrsEntryR\x05intrs\x1aY\n" +
+	"\n" +
+	"IntrsEntry\x12\x10\n" +
+	"\x03key\x18\x01 \x01(\x03R\x03key\x125\n" +
+	"\x05value\x18\x02 \x01(\v2\x1f.api.interactive.v1.InteractiveR\x05value:\x028\x01\"G\n" +
+	"\n" +
+	"GetRequest\x12\x10\n" +
+	"\x03biz\x18\x01 \x01(\tR\x03biz\x12\x15\n" +
+	"\x06biz_id\x18\x02 \x01(\x03R\x05bizId\x12\x10\n" +
+	"\x03uid\x18\x03 \x01(\x03R\x03uid\"B\n" +
+	"\vGetResponse\x123\n" +
+	"\x04intr\x18\x01 \x01(\v2\x1f.api.interactive.v1.InteractiveR\x04intr\"\xc1\x01\n" +
+	"\vInteractive\x12\x10\n" +
+	"\x03biz\x18\x01 \x01(\tR\x03biz\x12\x15\n" +
+	"\x06biz_id\x18\x02 \x01(\x03R\x05bizId\x12\x19\n" +
+	"\bread_cnt\x18\x03 \x01(\x03R\areadCnt\x12\x19\n" +
+	"\blike_cnt\x18\x04 \x01(\x03R\alikeCnt\x12\x1f\n" +
+	"\vcollect_cnt\x18\x05 \x01(\x03R\n" +
+	"collectCnt\x12\x14\n" +
+	"\x05liked\x18\x06 \x01(\bR\x05liked\x12\x1c\n" +
+	"\tcollected\x18\a \x01(\bR\tcollected\"]\n" +
+	"\x0eCollectRequest\x12\x10\n" +
+	"\x03biz\x18\x01 \x01(\tR\x03biz\x12\x15\n" +
+	"\x06biz_id\x18\x02 \x01(\x03R\x05bizId\x12\x10\n" +
+	"\x03uid\x18\x03 \x01(\x03R\x03uid\x12\x10\n" +
+	"\x03cid\x18\x04 \x01(\x03R\x03cid\"\x11\n" +
+	"\x0fCollectResponse\"N\n" +
+	"\x11CancelLikeRequest\x12\x10\n" +
+	"\x03biz\x18\x01 \x01(\tR\x03biz\x12\x15\n" +
+	"\x06biz_id\x18\x02 \x01(\x03R\x05bizId\x12\x10\n" +
+	"\x03uid\x18\x03 \x01(\x03R\x03uid\"\x14\n" +
+	"\x12CancelLikeResponse\"H\n" +
+	"\vLikeRequest\x12\x10\n" +
+	"\x03biz\x18\x01 \x01(\tR\x03biz\x12\x15\n" +
+	"\x06biz_id\x18\x02 \x01(\x03R\x05bizId\x12\x10\n" +
+	"\x03uid\x18\x03 \x01(\x03R\x03uid\"\x0e\n" +
+	"\fLikeResponse\"=\n" +
+	"\x12IncrReadCntRequest\x12\x10\n" +
+	"\x03biz\x18\x01 \x01(\tR\x03biz\x12\x15\n" +
+	"\x06biz_id\x18\x02 \x01(\x03R\x05bizId\"\x15\n" +
+	"\x13IncrReadCntResponse2\x8f\x04\n" +
+	"\x12InteractiveService\x12^\n" +
+	"\vIncrReadCnt\x12&.api.interactive.v1.IncrReadCntRequest\x1a'.api.interactive.v1.IncrReadCntResponse\x12I\n" +
+	"\x04Like\x12\x1f.api.interactive.v1.LikeRequest\x1a .api.interactive.v1.LikeResponse\x12[\n" +
+	"\n" +
+	"CancelLike\x12%.api.interactive.v1.CancelLikeRequest\x1a&.api.interactive.v1.CancelLikeResponse\x12R\n" +
+	"\aCollect\x12\".api.interactive.v1.CollectRequest\x1a#.api.interactive.v1.CollectResponse\x12F\n" +
+	"\x03Get\x12\x1e.api.interactive.v1.GetRequest\x1a\x1f.api.interactive.v1.GetResponse\x12U\n" +
+	"\bGetByIds\x12#.api.interactive.v1.GetByIdsRequest\x1a$.api.interactive.v1.GetByIdsResponseBAZ?github.com/LEILEI0628/GoWeb-MicroServices/api/interactive/v1;v1b\x06proto3"
 
 var (
 	file_interactive_v1_interactive_proto_rawDescOnce sync.Once
@@ -415,35 +769,44 @@ func file_interactive_v1_interactive_proto_rawDescGZIP() []byte {
 	return file_interactive_v1_interactive_proto_rawDescData
 }
 
-var file_interactive_v1_interactive_proto_msgTypes = make([]protoimpl.MessageInfo, 10)
+var file_interactive_v1_interactive_proto_msgTypes = make([]protoimpl.MessageInfo, 14)
 var file_interactive_v1_interactive_proto_goTypes = []any{
-	(*CreateInteractiveRequest)(nil), // 0: api.interactive.v1.CreateInteractiveRequest
-	(*CreateInteractiveReply)(nil),   // 1: api.interactive.v1.CreateInteractiveReply
-	(*UpdateInteractiveRequest)(nil), // 2: api.interactive.v1.UpdateInteractiveRequest
-	(*UpdateInteractiveReply)(nil),   // 3: api.interactive.v1.UpdateInteractiveReply
-	(*DeleteInteractiveRequest)(nil), // 4: api.interactive.v1.DeleteInteractiveRequest
-	(*DeleteInteractiveReply)(nil),   // 5: api.interactive.v1.DeleteInteractiveReply
-	(*GetInteractiveRequest)(nil),    // 6: api.interactive.v1.GetInteractiveRequest
-	(*GetInteractiveReply)(nil),      // 7: api.interactive.v1.GetInteractiveReply
-	(*ListInteractiveRequest)(nil),   // 8: api.interactive.v1.ListInteractiveRequest
-	(*ListInteractiveReply)(nil),     // 9: api.interactive.v1.ListInteractiveReply
+	(*GetByIdsRequest)(nil),     // 0: api.interactive.v1.GetByIdsRequest
+	(*GetByIdsResponse)(nil),    // 1: api.interactive.v1.GetByIdsResponse
+	(*GetRequest)(nil),          // 2: api.interactive.v1.GetRequest
+	(*GetResponse)(nil),         // 3: api.interactive.v1.GetResponse
+	(*Interactive)(nil),         // 4: api.interactive.v1.Interactive
+	(*CollectRequest)(nil),      // 5: api.interactive.v1.CollectRequest
+	(*CollectResponse)(nil),     // 6: api.interactive.v1.CollectResponse
+	(*CancelLikeRequest)(nil),   // 7: api.interactive.v1.CancelLikeRequest
+	(*CancelLikeResponse)(nil),  // 8: api.interactive.v1.CancelLikeResponse
+	(*LikeRequest)(nil),         // 9: api.interactive.v1.LikeRequest
+	(*LikeResponse)(nil),        // 10: api.interactive.v1.LikeResponse
+	(*IncrReadCntRequest)(nil),  // 11: api.interactive.v1.IncrReadCntRequest
+	(*IncrReadCntResponse)(nil), // 12: api.interactive.v1.IncrReadCntResponse
+	nil,                         // 13: api.interactive.v1.GetByIdsResponse.IntrsEntry
 }
 var file_interactive_v1_interactive_proto_depIdxs = []int32{
-	0, // 0: api.interactive.v1.Interactive.CreateInteractive:input_type -> api.interactive.v1.CreateInteractiveRequest
-	2, // 1: api.interactive.v1.Interactive.UpdateInteractive:input_type -> api.interactive.v1.UpdateInteractiveRequest
-	4, // 2: api.interactive.v1.Interactive.DeleteInteractive:input_type -> api.interactive.v1.DeleteInteractiveRequest
-	6, // 3: api.interactive.v1.Interactive.GetInteractive:input_type -> api.interactive.v1.GetInteractiveRequest
-	8, // 4: api.interactive.v1.Interactive.ListInteractive:input_type -> api.interactive.v1.ListInteractiveRequest
-	1, // 5: api.interactive.v1.Interactive.CreateInteractive:output_type -> api.interactive.v1.CreateInteractiveReply
-	3, // 6: api.interactive.v1.Interactive.UpdateInteractive:output_type -> api.interactive.v1.UpdateInteractiveReply
-	5, // 7: api.interactive.v1.Interactive.DeleteInteractive:output_type -> api.interactive.v1.DeleteInteractiveReply
-	7, // 8: api.interactive.v1.Interactive.GetInteractive:output_type -> api.interactive.v1.GetInteractiveReply
-	9, // 9: api.interactive.v1.Interactive.ListInteractive:output_type -> api.interactive.v1.ListInteractiveReply
-	5, // [5:10] is the sub-list for method output_type
-	0, // [0:5] is the sub-list for method input_type
-	0, // [0:0] is the sub-list for extension type_name
-	0, // [0:0] is the sub-list for extension extendee
-	0, // [0:0] is the sub-list for field type_name
+	13, // 0: api.interactive.v1.GetByIdsResponse.intrs:type_name -> api.interactive.v1.GetByIdsResponse.IntrsEntry
+	4,  // 1: api.interactive.v1.GetResponse.intr:type_name -> api.interactive.v1.Interactive
+	4,  // 2: api.interactive.v1.GetByIdsResponse.IntrsEntry.value:type_name -> api.interactive.v1.Interactive
+	11, // 3: api.interactive.v1.InteractiveService.IncrReadCnt:input_type -> api.interactive.v1.IncrReadCntRequest
+	9,  // 4: api.interactive.v1.InteractiveService.Like:input_type -> api.interactive.v1.LikeRequest
+	7,  // 5: api.interactive.v1.InteractiveService.CancelLike:input_type -> api.interactive.v1.CancelLikeRequest
+	5,  // 6: api.interactive.v1.InteractiveService.Collect:input_type -> api.interactive.v1.CollectRequest
+	2,  // 7: api.interactive.v1.InteractiveService.Get:input_type -> api.interactive.v1.GetRequest
+	0,  // 8: api.interactive.v1.InteractiveService.GetByIds:input_type -> api.interactive.v1.GetByIdsRequest
+	12, // 9: api.interactive.v1.InteractiveService.IncrReadCnt:output_type -> api.interactive.v1.IncrReadCntResponse
+	10, // 10: api.interactive.v1.InteractiveService.Like:output_type -> api.interactive.v1.LikeResponse
+	8,  // 11: api.interactive.v1.InteractiveService.CancelLike:output_type -> api.interactive.v1.CancelLikeResponse
+	6,  // 12: api.interactive.v1.InteractiveService.Collect:output_type -> api.interactive.v1.CollectResponse
+	3,  // 13: api.interactive.v1.InteractiveService.Get:output_type -> api.interactive.v1.GetResponse
+	1,  // 14: api.interactive.v1.InteractiveService.GetByIds:output_type -> api.interactive.v1.GetByIdsResponse
+	9,  // [9:15] is the sub-list for method output_type
+	3,  // [3:9] is the sub-list for method input_type
+	3,  // [3:3] is the sub-list for extension type_name
+	3,  // [3:3] is the sub-list for extension extendee
+	0,  // [0:3] is the sub-list for field type_name
 }
 
 func init() { file_interactive_v1_interactive_proto_init() }
@@ -457,7 +820,7 @@ func file_interactive_v1_interactive_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_interactive_v1_interactive_proto_rawDesc), len(file_interactive_v1_interactive_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   10,
+			NumMessages:   14,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

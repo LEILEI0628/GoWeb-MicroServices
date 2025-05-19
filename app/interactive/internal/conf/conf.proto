@@ -8,6 +8,7 @@ import "google/protobuf/duration.proto";
 message Bootstrap {
   Server server = 1;
   Data data = 2;
+  MessageQueue message_queue = 3;
 }
 
 message Server {
@@ -38,4 +39,11 @@ message Data {
   }
   Database database = 1;
   Redis redis = 2;
+}
+
+message MessageQueue {
+  message Kafka {
+    repeated string addrs = 1;
+  }
+  Kafka kafka = 1;
 }

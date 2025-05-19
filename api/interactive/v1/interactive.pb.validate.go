@@ -35,42 +35,44 @@ var (
 	_ = sort.Sort
 )
 
-// Validate checks the field values on CreateInteractiveRequest with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the first error encountered is returned, or nil if there are no violations.
-func (m *CreateInteractiveRequest) Validate() error {
+// Validate checks the field values on GetByIdsRequest with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *GetByIdsRequest) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on CreateInteractiveRequest with the
-// rules defined in the proto definition for this message. If any rules are
+// ValidateAll checks the field values on GetByIdsRequest with the rules
+// defined in the proto definition for this message. If any rules are
 // violated, the result is a list of violation errors wrapped in
-// CreateInteractiveRequestMultiError, or nil if none found.
-func (m *CreateInteractiveRequest) ValidateAll() error {
+// GetByIdsRequestMultiError, or nil if none found.
+func (m *GetByIdsRequest) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *CreateInteractiveRequest) validate(all bool) error {
+func (m *GetByIdsRequest) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
 	var errors []error
 
+	// no validation rules for Biz
+
 	if len(errors) > 0 {
-		return CreateInteractiveRequestMultiError(errors)
+		return GetByIdsRequestMultiError(errors)
 	}
 
 	return nil
 }
 
-// CreateInteractiveRequestMultiError is an error wrapping multiple validation
-// errors returned by CreateInteractiveRequest.ValidateAll() if the designated
-// constraints aren't met.
-type CreateInteractiveRequestMultiError []error
+// GetByIdsRequestMultiError is an error wrapping multiple validation errors
+// returned by GetByIdsRequest.ValidateAll() if the designated constraints
+// aren't met.
+type GetByIdsRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m CreateInteractiveRequestMultiError) Error() string {
+func (m GetByIdsRequestMultiError) Error() string {
 	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -79,11 +81,11 @@ func (m CreateInteractiveRequestMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m CreateInteractiveRequestMultiError) AllErrors() []error { return m }
+func (m GetByIdsRequestMultiError) AllErrors() []error { return m }
 
-// CreateInteractiveRequestValidationError is the validation error returned by
-// CreateInteractiveRequest.Validate if the designated constraints aren't met.
-type CreateInteractiveRequestValidationError struct {
+// GetByIdsRequestValidationError is the validation error returned by
+// GetByIdsRequest.Validate if the designated constraints aren't met.
+type GetByIdsRequestValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -91,24 +93,22 @@ type CreateInteractiveRequestValidationError struct {
 }
 
 // Field function returns field value.
-func (e CreateInteractiveRequestValidationError) Field() string { return e.field }
+func (e GetByIdsRequestValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e CreateInteractiveRequestValidationError) Reason() string { return e.reason }
+func (e GetByIdsRequestValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e CreateInteractiveRequestValidationError) Cause() error { return e.cause }
+func (e GetByIdsRequestValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e CreateInteractiveRequestValidationError) Key() bool { return e.key }
+func (e GetByIdsRequestValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e CreateInteractiveRequestValidationError) ErrorName() string {
-	return "CreateInteractiveRequestValidationError"
-}
+func (e GetByIdsRequestValidationError) ErrorName() string { return "GetByIdsRequestValidationError" }
 
 // Error satisfies the builtin error interface
-func (e CreateInteractiveRequestValidationError) Error() string {
+func (e GetByIdsRequestValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -120,14 +120,14 @@ func (e CreateInteractiveRequestValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sCreateInteractiveRequest.%s: %s%s",
+		"invalid %sGetByIdsRequest.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = CreateInteractiveRequestValidationError{}
+var _ error = GetByIdsRequestValidationError{}
 
 var _ interface {
 	Field() string
@@ -135,44 +135,90 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = CreateInteractiveRequestValidationError{}
+} = GetByIdsRequestValidationError{}
 
-// Validate checks the field values on CreateInteractiveReply with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the first error encountered is returned, or nil if there are no violations.
-func (m *CreateInteractiveReply) Validate() error {
+// Validate checks the field values on GetByIdsResponse with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *GetByIdsResponse) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on CreateInteractiveReply with the rules
+// ValidateAll checks the field values on GetByIdsResponse with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the result is a list of violation errors wrapped in
-// CreateInteractiveReplyMultiError, or nil if none found.
-func (m *CreateInteractiveReply) ValidateAll() error {
+// GetByIdsResponseMultiError, or nil if none found.
+func (m *GetByIdsResponse) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *CreateInteractiveReply) validate(all bool) error {
+func (m *GetByIdsResponse) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
 	var errors []error
 
+	{
+		sorted_keys := make([]int64, len(m.GetIntrs()))
+		i := 0
+		for key := range m.GetIntrs() {
+			sorted_keys[i] = key
+			i++
+		}
+		sort.Slice(sorted_keys, func(i, j int) bool { return sorted_keys[i] < sorted_keys[j] })
+		for _, key := range sorted_keys {
+			val := m.GetIntrs()[key]
+			_ = val
+
+			// no validation rules for Intrs[key]
+
+			if all {
+				switch v := interface{}(val).(type) {
+				case interface{ ValidateAll() error }:
+					if err := v.ValidateAll(); err != nil {
+						errors = append(errors, GetByIdsResponseValidationError{
+							field:  fmt.Sprintf("Intrs[%v]", key),
+							reason: "embedded message failed validation",
+							cause:  err,
+						})
+					}
+				case interface{ Validate() error }:
+					if err := v.Validate(); err != nil {
+						errors = append(errors, GetByIdsResponseValidationError{
+							field:  fmt.Sprintf("Intrs[%v]", key),
+							reason: "embedded message failed validation",
+							cause:  err,
+						})
+					}
+				}
+			} else if v, ok := interface{}(val).(interface{ Validate() error }); ok {
+				if err := v.Validate(); err != nil {
+					return GetByIdsResponseValidationError{
+						field:  fmt.Sprintf("Intrs[%v]", key),
+						reason: "embedded message failed validation",
+						cause:  err,
+					}
+				}
+			}
+
+		}
+	}
+
 	if len(errors) > 0 {
-		return CreateInteractiveReplyMultiError(errors)
+		return GetByIdsResponseMultiError(errors)
 	}
 
 	return nil
 }
 
-// CreateInteractiveReplyMultiError is an error wrapping multiple validation
-// errors returned by CreateInteractiveReply.ValidateAll() if the designated
-// constraints aren't met.
-type CreateInteractiveReplyMultiError []error
+// GetByIdsResponseMultiError is an error wrapping multiple validation errors
+// returned by GetByIdsResponse.ValidateAll() if the designated constraints
+// aren't met.
+type GetByIdsResponseMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m CreateInteractiveReplyMultiError) Error() string {
+func (m GetByIdsResponseMultiError) Error() string {
 	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -181,11 +227,11 @@ func (m CreateInteractiveReplyMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m CreateInteractiveReplyMultiError) AllErrors() []error { return m }
+func (m GetByIdsResponseMultiError) AllErrors() []error { return m }
 
-// CreateInteractiveReplyValidationError is the validation error returned by
-// CreateInteractiveReply.Validate if the designated constraints aren't met.
-type CreateInteractiveReplyValidationError struct {
+// GetByIdsResponseValidationError is the validation error returned by
+// GetByIdsResponse.Validate if the designated constraints aren't met.
+type GetByIdsResponseValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -193,24 +239,22 @@ type CreateInteractiveReplyValidationError struct {
 }
 
 // Field function returns field value.
-func (e CreateInteractiveReplyValidationError) Field() string { return e.field }
+func (e GetByIdsResponseValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e CreateInteractiveReplyValidationError) Reason() string { return e.reason }
+func (e GetByIdsResponseValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e CreateInteractiveReplyValidationError) Cause() error { return e.cause }
+func (e GetByIdsResponseValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e CreateInteractiveReplyValidationError) Key() bool { return e.key }
+func (e GetByIdsResponseValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e CreateInteractiveReplyValidationError) ErrorName() string {
-	return "CreateInteractiveReplyValidationError"
-}
+func (e GetByIdsResponseValidationError) ErrorName() string { return "GetByIdsResponseValidationError" }
 
 // Error satisfies the builtin error interface
-func (e CreateInteractiveReplyValidationError) Error() string {
+func (e GetByIdsResponseValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -222,14 +266,14 @@ func (e CreateInteractiveReplyValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sCreateInteractiveReply.%s: %s%s",
+		"invalid %sGetByIdsResponse.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = CreateInteractiveReplyValidationError{}
+var _ error = GetByIdsResponseValidationError{}
 
 var _ interface {
 	Field() string
@@ -237,44 +281,49 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = CreateInteractiveReplyValidationError{}
+} = GetByIdsResponseValidationError{}
 
-// Validate checks the field values on UpdateInteractiveRequest with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the first error encountered is returned, or nil if there are no violations.
-func (m *UpdateInteractiveRequest) Validate() error {
+// Validate checks the field values on GetRequest with the rules defined in the
+// proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *GetRequest) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on UpdateInteractiveRequest with the
-// rules defined in the proto definition for this message. If any rules are
-// violated, the result is a list of violation errors wrapped in
-// UpdateInteractiveRequestMultiError, or nil if none found.
-func (m *UpdateInteractiveRequest) ValidateAll() error {
+// ValidateAll checks the field values on GetRequest with the rules defined in
+// the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in GetRequestMultiError, or
+// nil if none found.
+func (m *GetRequest) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *UpdateInteractiveRequest) validate(all bool) error {
+func (m *GetRequest) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
 	var errors []error
 
+	// no validation rules for Biz
+
+	// no validation rules for BizId
+
+	// no validation rules for Uid
+
 	if len(errors) > 0 {
-		return UpdateInteractiveRequestMultiError(errors)
+		return GetRequestMultiError(errors)
 	}
 
 	return nil
 }
 
-// UpdateInteractiveRequestMultiError is an error wrapping multiple validation
-// errors returned by UpdateInteractiveRequest.ValidateAll() if the designated
-// constraints aren't met.
-type UpdateInteractiveRequestMultiError []error
+// GetRequestMultiError is an error wrapping multiple validation errors
+// returned by GetRequest.ValidateAll() if the designated constraints aren't met.
+type GetRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m UpdateInteractiveRequestMultiError) Error() string {
+func (m GetRequestMultiError) Error() string {
 	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -283,11 +332,11 @@ func (m UpdateInteractiveRequestMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m UpdateInteractiveRequestMultiError) AllErrors() []error { return m }
+func (m GetRequestMultiError) AllErrors() []error { return m }
 
-// UpdateInteractiveRequestValidationError is the validation error returned by
-// UpdateInteractiveRequest.Validate if the designated constraints aren't met.
-type UpdateInteractiveRequestValidationError struct {
+// GetRequestValidationError is the validation error returned by
+// GetRequest.Validate if the designated constraints aren't met.
+type GetRequestValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -295,24 +344,22 @@ type UpdateInteractiveRequestValidationError struct {
 }
 
 // Field function returns field value.
-func (e UpdateInteractiveRequestValidationError) Field() string { return e.field }
+func (e GetRequestValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e UpdateInteractiveRequestValidationError) Reason() string { return e.reason }
+func (e GetRequestValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e UpdateInteractiveRequestValidationError) Cause() error { return e.cause }
+func (e GetRequestValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e UpdateInteractiveRequestValidationError) Key() bool { return e.key }
+func (e GetRequestValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e UpdateInteractiveRequestValidationError) ErrorName() string {
-	return "UpdateInteractiveRequestValidationError"
-}
+func (e GetRequestValidationError) ErrorName() string { return "GetRequestValidationError" }
 
 // Error satisfies the builtin error interface
-func (e UpdateInteractiveRequestValidationError) Error() string {
+func (e GetRequestValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -324,14 +371,14 @@ func (e UpdateInteractiveRequestValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sUpdateInteractiveRequest.%s: %s%s",
+		"invalid %sGetRequest.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = UpdateInteractiveRequestValidationError{}
+var _ error = GetRequestValidationError{}
 
 var _ interface {
 	Field() string
@@ -339,44 +386,72 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = UpdateInteractiveRequestValidationError{}
+} = GetRequestValidationError{}
 
-// Validate checks the field values on UpdateInteractiveReply with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the first error encountered is returned, or nil if there are no violations.
-func (m *UpdateInteractiveReply) Validate() error {
+// Validate checks the field values on GetResponse with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *GetResponse) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on UpdateInteractiveReply with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the result is a list of violation errors wrapped in
-// UpdateInteractiveReplyMultiError, or nil if none found.
-func (m *UpdateInteractiveReply) ValidateAll() error {
+// ValidateAll checks the field values on GetResponse with the rules defined in
+// the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in GetResponseMultiError, or
+// nil if none found.
+func (m *GetResponse) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *UpdateInteractiveReply) validate(all bool) error {
+func (m *GetResponse) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
 	var errors []error
 
+	if all {
+		switch v := interface{}(m.GetIntr()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GetResponseValidationError{
+					field:  "Intr",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GetResponseValidationError{
+					field:  "Intr",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetIntr()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GetResponseValidationError{
+				field:  "Intr",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
 	if len(errors) > 0 {
-		return UpdateInteractiveReplyMultiError(errors)
+		return GetResponseMultiError(errors)
 	}
 
 	return nil
 }
 
-// UpdateInteractiveReplyMultiError is an error wrapping multiple validation
-// errors returned by UpdateInteractiveReply.ValidateAll() if the designated
-// constraints aren't met.
-type UpdateInteractiveReplyMultiError []error
+// GetResponseMultiError is an error wrapping multiple validation errors
+// returned by GetResponse.ValidateAll() if the designated constraints aren't met.
+type GetResponseMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m UpdateInteractiveReplyMultiError) Error() string {
+func (m GetResponseMultiError) Error() string {
 	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -385,11 +460,11 @@ func (m UpdateInteractiveReplyMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m UpdateInteractiveReplyMultiError) AllErrors() []error { return m }
+func (m GetResponseMultiError) AllErrors() []error { return m }
 
-// UpdateInteractiveReplyValidationError is the validation error returned by
-// UpdateInteractiveReply.Validate if the designated constraints aren't met.
-type UpdateInteractiveReplyValidationError struct {
+// GetResponseValidationError is the validation error returned by
+// GetResponse.Validate if the designated constraints aren't met.
+type GetResponseValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -397,24 +472,22 @@ type UpdateInteractiveReplyValidationError struct {
 }
 
 // Field function returns field value.
-func (e UpdateInteractiveReplyValidationError) Field() string { return e.field }
+func (e GetResponseValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e UpdateInteractiveReplyValidationError) Reason() string { return e.reason }
+func (e GetResponseValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e UpdateInteractiveReplyValidationError) Cause() error { return e.cause }
+func (e GetResponseValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e UpdateInteractiveReplyValidationError) Key() bool { return e.key }
+func (e GetResponseValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e UpdateInteractiveReplyValidationError) ErrorName() string {
-	return "UpdateInteractiveReplyValidationError"
-}
+func (e GetResponseValidationError) ErrorName() string { return "GetResponseValidationError" }
 
 // Error satisfies the builtin error interface
-func (e UpdateInteractiveReplyValidationError) Error() string {
+func (e GetResponseValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -426,14 +499,14 @@ func (e UpdateInteractiveReplyValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sUpdateInteractiveReply.%s: %s%s",
+		"invalid %sGetResponse.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = UpdateInteractiveReplyValidationError{}
+var _ error = GetResponseValidationError{}
 
 var _ interface {
 	Field() string
@@ -441,44 +514,57 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = UpdateInteractiveReplyValidationError{}
+} = GetResponseValidationError{}
 
-// Validate checks the field values on DeleteInteractiveRequest with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the first error encountered is returned, or nil if there are no violations.
-func (m *DeleteInteractiveRequest) Validate() error {
+// Validate checks the field values on Interactive with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *Interactive) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on DeleteInteractiveRequest with the
-// rules defined in the proto definition for this message. If any rules are
-// violated, the result is a list of violation errors wrapped in
-// DeleteInteractiveRequestMultiError, or nil if none found.
-func (m *DeleteInteractiveRequest) ValidateAll() error {
+// ValidateAll checks the field values on Interactive with the rules defined in
+// the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in InteractiveMultiError, or
+// nil if none found.
+func (m *Interactive) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *DeleteInteractiveRequest) validate(all bool) error {
+func (m *Interactive) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
 	var errors []error
 
+	// no validation rules for Biz
+
+	// no validation rules for BizId
+
+	// no validation rules for ReadCnt
+
+	// no validation rules for LikeCnt
+
+	// no validation rules for CollectCnt
+
+	// no validation rules for Liked
+
+	// no validation rules for Collected
+
 	if len(errors) > 0 {
-		return DeleteInteractiveRequestMultiError(errors)
+		return InteractiveMultiError(errors)
 	}
 
 	return nil
 }
 
-// DeleteInteractiveRequestMultiError is an error wrapping multiple validation
-// errors returned by DeleteInteractiveRequest.ValidateAll() if the designated
-// constraints aren't met.
-type DeleteInteractiveRequestMultiError []error
+// InteractiveMultiError is an error wrapping multiple validation errors
+// returned by Interactive.ValidateAll() if the designated constraints aren't met.
+type InteractiveMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m DeleteInteractiveRequestMultiError) Error() string {
+func (m InteractiveMultiError) Error() string {
 	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -487,11 +573,11 @@ func (m DeleteInteractiveRequestMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m DeleteInteractiveRequestMultiError) AllErrors() []error { return m }
+func (m InteractiveMultiError) AllErrors() []error { return m }
 
-// DeleteInteractiveRequestValidationError is the validation error returned by
-// DeleteInteractiveRequest.Validate if the designated constraints aren't met.
-type DeleteInteractiveRequestValidationError struct {
+// InteractiveValidationError is the validation error returned by
+// Interactive.Validate if the designated constraints aren't met.
+type InteractiveValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -499,24 +585,22 @@ type DeleteInteractiveRequestValidationError struct {
 }
 
 // Field function returns field value.
-func (e DeleteInteractiveRequestValidationError) Field() string { return e.field }
+func (e InteractiveValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e DeleteInteractiveRequestValidationError) Reason() string { return e.reason }
+func (e InteractiveValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e DeleteInteractiveRequestValidationError) Cause() error { return e.cause }
+func (e InteractiveValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e DeleteInteractiveRequestValidationError) Key() bool { return e.key }
+func (e InteractiveValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e DeleteInteractiveRequestValidationError) ErrorName() string {
-	return "DeleteInteractiveRequestValidationError"
-}
+func (e InteractiveValidationError) ErrorName() string { return "InteractiveValidationError" }
 
 // Error satisfies the builtin error interface
-func (e DeleteInteractiveRequestValidationError) Error() string {
+func (e InteractiveValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -528,14 +612,14 @@ func (e DeleteInteractiveRequestValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sDeleteInteractiveRequest.%s: %s%s",
+		"invalid %sInteractive.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = DeleteInteractiveRequestValidationError{}
+var _ error = InteractiveValidationError{}
 
 var _ interface {
 	Field() string
@@ -543,44 +627,52 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = DeleteInteractiveRequestValidationError{}
+} = InteractiveValidationError{}
 
-// Validate checks the field values on DeleteInteractiveReply with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the first error encountered is returned, or nil if there are no violations.
-func (m *DeleteInteractiveReply) Validate() error {
+// Validate checks the field values on CollectRequest with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *CollectRequest) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on DeleteInteractiveReply with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the result is a list of violation errors wrapped in
-// DeleteInteractiveReplyMultiError, or nil if none found.
-func (m *DeleteInteractiveReply) ValidateAll() error {
+// ValidateAll checks the field values on CollectRequest with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in CollectRequestMultiError,
+// or nil if none found.
+func (m *CollectRequest) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *DeleteInteractiveReply) validate(all bool) error {
+func (m *CollectRequest) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
 	var errors []error
 
+	// no validation rules for Biz
+
+	// no validation rules for BizId
+
+	// no validation rules for Uid
+
+	// no validation rules for Cid
+
 	if len(errors) > 0 {
-		return DeleteInteractiveReplyMultiError(errors)
+		return CollectRequestMultiError(errors)
 	}
 
 	return nil
 }
 
-// DeleteInteractiveReplyMultiError is an error wrapping multiple validation
-// errors returned by DeleteInteractiveReply.ValidateAll() if the designated
-// constraints aren't met.
-type DeleteInteractiveReplyMultiError []error
+// CollectRequestMultiError is an error wrapping multiple validation errors
+// returned by CollectRequest.ValidateAll() if the designated constraints
+// aren't met.
+type CollectRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m DeleteInteractiveReplyMultiError) Error() string {
+func (m CollectRequestMultiError) Error() string {
 	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -589,11 +681,11 @@ func (m DeleteInteractiveReplyMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m DeleteInteractiveReplyMultiError) AllErrors() []error { return m }
+func (m CollectRequestMultiError) AllErrors() []error { return m }
 
-// DeleteInteractiveReplyValidationError is the validation error returned by
-// DeleteInteractiveReply.Validate if the designated constraints aren't met.
-type DeleteInteractiveReplyValidationError struct {
+// CollectRequestValidationError is the validation error returned by
+// CollectRequest.Validate if the designated constraints aren't met.
+type CollectRequestValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -601,24 +693,22 @@ type DeleteInteractiveReplyValidationError struct {
 }
 
 // Field function returns field value.
-func (e DeleteInteractiveReplyValidationError) Field() string { return e.field }
+func (e CollectRequestValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e DeleteInteractiveReplyValidationError) Reason() string { return e.reason }
+func (e CollectRequestValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e DeleteInteractiveReplyValidationError) Cause() error { return e.cause }
+func (e CollectRequestValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e DeleteInteractiveReplyValidationError) Key() bool { return e.key }
+func (e CollectRequestValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e DeleteInteractiveReplyValidationError) ErrorName() string {
-	return "DeleteInteractiveReplyValidationError"
-}
+func (e CollectRequestValidationError) ErrorName() string { return "CollectRequestValidationError" }
 
 // Error satisfies the builtin error interface
-func (e DeleteInteractiveReplyValidationError) Error() string {
+func (e CollectRequestValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -630,14 +720,14 @@ func (e DeleteInteractiveReplyValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sDeleteInteractiveReply.%s: %s%s",
+		"invalid %sCollectRequest.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = DeleteInteractiveReplyValidationError{}
+var _ error = CollectRequestValidationError{}
 
 var _ interface {
 	Field() string
@@ -645,24 +735,24 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = DeleteInteractiveReplyValidationError{}
+} = CollectRequestValidationError{}
 
-// Validate checks the field values on GetInteractiveRequest with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the first error encountered is returned, or nil if there are no violations.
-func (m *GetInteractiveRequest) Validate() error {
+// Validate checks the field values on CollectResponse with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *CollectResponse) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on GetInteractiveRequest with the rules
+// ValidateAll checks the field values on CollectResponse with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the result is a list of violation errors wrapped in
-// GetInteractiveRequestMultiError, or nil if none found.
-func (m *GetInteractiveRequest) ValidateAll() error {
+// CollectResponseMultiError, or nil if none found.
+func (m *CollectResponse) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *GetInteractiveRequest) validate(all bool) error {
+func (m *CollectResponse) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -670,19 +760,19 @@ func (m *GetInteractiveRequest) validate(all bool) error {
 	var errors []error
 
 	if len(errors) > 0 {
-		return GetInteractiveRequestMultiError(errors)
+		return CollectResponseMultiError(errors)
 	}
 
 	return nil
 }
 
-// GetInteractiveRequestMultiError is an error wrapping multiple validation
-// errors returned by GetInteractiveRequest.ValidateAll() if the designated
-// constraints aren't met.
-type GetInteractiveRequestMultiError []error
+// CollectResponseMultiError is an error wrapping multiple validation errors
+// returned by CollectResponse.ValidateAll() if the designated constraints
+// aren't met.
+type CollectResponseMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m GetInteractiveRequestMultiError) Error() string {
+func (m CollectResponseMultiError) Error() string {
 	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -691,11 +781,11 @@ func (m GetInteractiveRequestMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m GetInteractiveRequestMultiError) AllErrors() []error { return m }
+func (m CollectResponseMultiError) AllErrors() []error { return m }
 
-// GetInteractiveRequestValidationError is the validation error returned by
-// GetInteractiveRequest.Validate if the designated constraints aren't met.
-type GetInteractiveRequestValidationError struct {
+// CollectResponseValidationError is the validation error returned by
+// CollectResponse.Validate if the designated constraints aren't met.
+type CollectResponseValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -703,24 +793,22 @@ type GetInteractiveRequestValidationError struct {
 }
 
 // Field function returns field value.
-func (e GetInteractiveRequestValidationError) Field() string { return e.field }
+func (e CollectResponseValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e GetInteractiveRequestValidationError) Reason() string { return e.reason }
+func (e CollectResponseValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e GetInteractiveRequestValidationError) Cause() error { return e.cause }
+func (e CollectResponseValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e GetInteractiveRequestValidationError) Key() bool { return e.key }
+func (e CollectResponseValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e GetInteractiveRequestValidationError) ErrorName() string {
-	return "GetInteractiveRequestValidationError"
-}
+func (e CollectResponseValidationError) ErrorName() string { return "CollectResponseValidationError" }
 
 // Error satisfies the builtin error interface
-func (e GetInteractiveRequestValidationError) Error() string {
+func (e CollectResponseValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -732,14 +820,14 @@ func (e GetInteractiveRequestValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sGetInteractiveRequest.%s: %s%s",
+		"invalid %sCollectResponse.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = GetInteractiveRequestValidationError{}
+var _ error = CollectResponseValidationError{}
 
 var _ interface {
 	Field() string
@@ -747,44 +835,50 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = GetInteractiveRequestValidationError{}
+} = CollectResponseValidationError{}
 
-// Validate checks the field values on GetInteractiveReply with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the first error encountered is returned, or nil if there are no violations.
-func (m *GetInteractiveReply) Validate() error {
+// Validate checks the field values on CancelLikeRequest with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *CancelLikeRequest) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on GetInteractiveReply with the rules
+// ValidateAll checks the field values on CancelLikeRequest with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the result is a list of violation errors wrapped in
-// GetInteractiveReplyMultiError, or nil if none found.
-func (m *GetInteractiveReply) ValidateAll() error {
+// CancelLikeRequestMultiError, or nil if none found.
+func (m *CancelLikeRequest) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *GetInteractiveReply) validate(all bool) error {
+func (m *CancelLikeRequest) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
 	var errors []error
 
+	// no validation rules for Biz
+
+	// no validation rules for BizId
+
+	// no validation rules for Uid
+
 	if len(errors) > 0 {
-		return GetInteractiveReplyMultiError(errors)
+		return CancelLikeRequestMultiError(errors)
 	}
 
 	return nil
 }
 
-// GetInteractiveReplyMultiError is an error wrapping multiple validation
-// errors returned by GetInteractiveReply.ValidateAll() if the designated
-// constraints aren't met.
-type GetInteractiveReplyMultiError []error
+// CancelLikeRequestMultiError is an error wrapping multiple validation errors
+// returned by CancelLikeRequest.ValidateAll() if the designated constraints
+// aren't met.
+type CancelLikeRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m GetInteractiveReplyMultiError) Error() string {
+func (m CancelLikeRequestMultiError) Error() string {
 	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -793,11 +887,11 @@ func (m GetInteractiveReplyMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m GetInteractiveReplyMultiError) AllErrors() []error { return m }
+func (m CancelLikeRequestMultiError) AllErrors() []error { return m }
 
-// GetInteractiveReplyValidationError is the validation error returned by
-// GetInteractiveReply.Validate if the designated constraints aren't met.
-type GetInteractiveReplyValidationError struct {
+// CancelLikeRequestValidationError is the validation error returned by
+// CancelLikeRequest.Validate if the designated constraints aren't met.
+type CancelLikeRequestValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -805,24 +899,24 @@ type GetInteractiveReplyValidationError struct {
 }
 
 // Field function returns field value.
-func (e GetInteractiveReplyValidationError) Field() string { return e.field }
+func (e CancelLikeRequestValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e GetInteractiveReplyValidationError) Reason() string { return e.reason }
+func (e CancelLikeRequestValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e GetInteractiveReplyValidationError) Cause() error { return e.cause }
+func (e CancelLikeRequestValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e GetInteractiveReplyValidationError) Key() bool { return e.key }
+func (e CancelLikeRequestValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e GetInteractiveReplyValidationError) ErrorName() string {
-	return "GetInteractiveReplyValidationError"
+func (e CancelLikeRequestValidationError) ErrorName() string {
+	return "CancelLikeRequestValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e GetInteractiveReplyValidationError) Error() string {
+func (e CancelLikeRequestValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -834,14 +928,14 @@ func (e GetInteractiveReplyValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sGetInteractiveReply.%s: %s%s",
+		"invalid %sCancelLikeRequest.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = GetInteractiveReplyValidationError{}
+var _ error = CancelLikeRequestValidationError{}
 
 var _ interface {
 	Field() string
@@ -849,24 +943,24 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = GetInteractiveReplyValidationError{}
+} = CancelLikeRequestValidationError{}
 
-// Validate checks the field values on ListInteractiveRequest with the rules
+// Validate checks the field values on CancelLikeResponse with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
-func (m *ListInteractiveRequest) Validate() error {
+func (m *CancelLikeResponse) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on ListInteractiveRequest with the rules
+// ValidateAll checks the field values on CancelLikeResponse with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the result is a list of violation errors wrapped in
-// ListInteractiveRequestMultiError, or nil if none found.
-func (m *ListInteractiveRequest) ValidateAll() error {
+// CancelLikeResponseMultiError, or nil if none found.
+func (m *CancelLikeResponse) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *ListInteractiveRequest) validate(all bool) error {
+func (m *CancelLikeResponse) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -874,19 +968,19 @@ func (m *ListInteractiveRequest) validate(all bool) error {
 	var errors []error
 
 	if len(errors) > 0 {
-		return ListInteractiveRequestMultiError(errors)
+		return CancelLikeResponseMultiError(errors)
 	}
 
 	return nil
 }
 
-// ListInteractiveRequestMultiError is an error wrapping multiple validation
-// errors returned by ListInteractiveRequest.ValidateAll() if the designated
-// constraints aren't met.
-type ListInteractiveRequestMultiError []error
+// CancelLikeResponseMultiError is an error wrapping multiple validation errors
+// returned by CancelLikeResponse.ValidateAll() if the designated constraints
+// aren't met.
+type CancelLikeResponseMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m ListInteractiveRequestMultiError) Error() string {
+func (m CancelLikeResponseMultiError) Error() string {
 	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -895,11 +989,11 @@ func (m ListInteractiveRequestMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m ListInteractiveRequestMultiError) AllErrors() []error { return m }
+func (m CancelLikeResponseMultiError) AllErrors() []error { return m }
 
-// ListInteractiveRequestValidationError is the validation error returned by
-// ListInteractiveRequest.Validate if the designated constraints aren't met.
-type ListInteractiveRequestValidationError struct {
+// CancelLikeResponseValidationError is the validation error returned by
+// CancelLikeResponse.Validate if the designated constraints aren't met.
+type CancelLikeResponseValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -907,24 +1001,24 @@ type ListInteractiveRequestValidationError struct {
 }
 
 // Field function returns field value.
-func (e ListInteractiveRequestValidationError) Field() string { return e.field }
+func (e CancelLikeResponseValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e ListInteractiveRequestValidationError) Reason() string { return e.reason }
+func (e CancelLikeResponseValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e ListInteractiveRequestValidationError) Cause() error { return e.cause }
+func (e CancelLikeResponseValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e ListInteractiveRequestValidationError) Key() bool { return e.key }
+func (e CancelLikeResponseValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e ListInteractiveRequestValidationError) ErrorName() string {
-	return "ListInteractiveRequestValidationError"
+func (e CancelLikeResponseValidationError) ErrorName() string {
+	return "CancelLikeResponseValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e ListInteractiveRequestValidationError) Error() string {
+func (e CancelLikeResponseValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -936,14 +1030,14 @@ func (e ListInteractiveRequestValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sListInteractiveRequest.%s: %s%s",
+		"invalid %sCancelLikeResponse.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = ListInteractiveRequestValidationError{}
+var _ error = CancelLikeResponseValidationError{}
 
 var _ interface {
 	Field() string
@@ -951,44 +1045,49 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = ListInteractiveRequestValidationError{}
+} = CancelLikeResponseValidationError{}
 
-// Validate checks the field values on ListInteractiveReply with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the first error encountered is returned, or nil if there are no violations.
-func (m *ListInteractiveReply) Validate() error {
+// Validate checks the field values on LikeRequest with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *LikeRequest) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on ListInteractiveReply with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the result is a list of violation errors wrapped in
-// ListInteractiveReplyMultiError, or nil if none found.
-func (m *ListInteractiveReply) ValidateAll() error {
+// ValidateAll checks the field values on LikeRequest with the rules defined in
+// the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in LikeRequestMultiError, or
+// nil if none found.
+func (m *LikeRequest) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *ListInteractiveReply) validate(all bool) error {
+func (m *LikeRequest) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
 	var errors []error
 
+	// no validation rules for Biz
+
+	// no validation rules for BizId
+
+	// no validation rules for Uid
+
 	if len(errors) > 0 {
-		return ListInteractiveReplyMultiError(errors)
+		return LikeRequestMultiError(errors)
 	}
 
 	return nil
 }
 
-// ListInteractiveReplyMultiError is an error wrapping multiple validation
-// errors returned by ListInteractiveReply.ValidateAll() if the designated
-// constraints aren't met.
-type ListInteractiveReplyMultiError []error
+// LikeRequestMultiError is an error wrapping multiple validation errors
+// returned by LikeRequest.ValidateAll() if the designated constraints aren't met.
+type LikeRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m ListInteractiveReplyMultiError) Error() string {
+func (m LikeRequestMultiError) Error() string {
 	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -997,11 +1096,11 @@ func (m ListInteractiveReplyMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m ListInteractiveReplyMultiError) AllErrors() []error { return m }
+func (m LikeRequestMultiError) AllErrors() []error { return m }
 
-// ListInteractiveReplyValidationError is the validation error returned by
-// ListInteractiveReply.Validate if the designated constraints aren't met.
-type ListInteractiveReplyValidationError struct {
+// LikeRequestValidationError is the validation error returned by
+// LikeRequest.Validate if the designated constraints aren't met.
+type LikeRequestValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -1009,24 +1108,22 @@ type ListInteractiveReplyValidationError struct {
 }
 
 // Field function returns field value.
-func (e ListInteractiveReplyValidationError) Field() string { return e.field }
+func (e LikeRequestValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e ListInteractiveReplyValidationError) Reason() string { return e.reason }
+func (e LikeRequestValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e ListInteractiveReplyValidationError) Cause() error { return e.cause }
+func (e LikeRequestValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e ListInteractiveReplyValidationError) Key() bool { return e.key }
+func (e LikeRequestValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e ListInteractiveReplyValidationError) ErrorName() string {
-	return "ListInteractiveReplyValidationError"
-}
+func (e LikeRequestValidationError) ErrorName() string { return "LikeRequestValidationError" }
 
 // Error satisfies the builtin error interface
-func (e ListInteractiveReplyValidationError) Error() string {
+func (e LikeRequestValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -1038,14 +1135,14 @@ func (e ListInteractiveReplyValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sListInteractiveReply.%s: %s%s",
+		"invalid %sLikeRequest.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = ListInteractiveReplyValidationError{}
+var _ error = LikeRequestValidationError{}
 
 var _ interface {
 	Field() string
@@ -1053,4 +1150,311 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = ListInteractiveReplyValidationError{}
+} = LikeRequestValidationError{}
+
+// Validate checks the field values on LikeResponse with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *LikeResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on LikeResponse with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in LikeResponseMultiError, or
+// nil if none found.
+func (m *LikeResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *LikeResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return LikeResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// LikeResponseMultiError is an error wrapping multiple validation errors
+// returned by LikeResponse.ValidateAll() if the designated constraints aren't met.
+type LikeResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m LikeResponseMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m LikeResponseMultiError) AllErrors() []error { return m }
+
+// LikeResponseValidationError is the validation error returned by
+// LikeResponse.Validate if the designated constraints aren't met.
+type LikeResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e LikeResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e LikeResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e LikeResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e LikeResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e LikeResponseValidationError) ErrorName() string { return "LikeResponseValidationError" }
+
+// Error satisfies the builtin error interface
+func (e LikeResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sLikeResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = LikeResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = LikeResponseValidationError{}
+
+// Validate checks the field values on IncrReadCntRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *IncrReadCntRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on IncrReadCntRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// IncrReadCntRequestMultiError, or nil if none found.
+func (m *IncrReadCntRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *IncrReadCntRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Biz
+
+	// no validation rules for BizId
+
+	if len(errors) > 0 {
+		return IncrReadCntRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// IncrReadCntRequestMultiError is an error wrapping multiple validation errors
+// returned by IncrReadCntRequest.ValidateAll() if the designated constraints
+// aren't met.
+type IncrReadCntRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m IncrReadCntRequestMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m IncrReadCntRequestMultiError) AllErrors() []error { return m }
+
+// IncrReadCntRequestValidationError is the validation error returned by
+// IncrReadCntRequest.Validate if the designated constraints aren't met.
+type IncrReadCntRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e IncrReadCntRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e IncrReadCntRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e IncrReadCntRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e IncrReadCntRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e IncrReadCntRequestValidationError) ErrorName() string {
+	return "IncrReadCntRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e IncrReadCntRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sIncrReadCntRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = IncrReadCntRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = IncrReadCntRequestValidationError{}
+
+// Validate checks the field values on IncrReadCntResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *IncrReadCntResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on IncrReadCntResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// IncrReadCntResponseMultiError, or nil if none found.
+func (m *IncrReadCntResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *IncrReadCntResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return IncrReadCntResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// IncrReadCntResponseMultiError is an error wrapping multiple validation
+// errors returned by IncrReadCntResponse.ValidateAll() if the designated
+// constraints aren't met.
+type IncrReadCntResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m IncrReadCntResponseMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m IncrReadCntResponseMultiError) AllErrors() []error { return m }
+
+// IncrReadCntResponseValidationError is the validation error returned by
+// IncrReadCntResponse.Validate if the designated constraints aren't met.
+type IncrReadCntResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e IncrReadCntResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e IncrReadCntResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e IncrReadCntResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e IncrReadCntResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e IncrReadCntResponseValidationError) ErrorName() string {
+	return "IncrReadCntResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e IncrReadCntResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sIncrReadCntResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = IncrReadCntResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = IncrReadCntResponseValidationError{}

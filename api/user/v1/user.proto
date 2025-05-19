@@ -4,7 +4,7 @@ package api.user.v1;
 
 option go_package = "github.com/LEILEI0628/GoWeb-MicroServices/api/user/v1;v1";
 
-service User {
+service UserService {
 	rpc CreateUser (CreateUserRequest) returns (CreateUserReply);
 	rpc UpdateUser (UpdateUserRequest) returns (UpdateUserReply);
 	rpc DeleteUser (DeleteUserRequest) returns (DeleteUserReply);

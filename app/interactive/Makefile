@@ -69,8 +69,8 @@ clean:
 # generate all
 all:
 	make generate;
-	make wire;
 	make config;
+	make wire;
 	make build;
 
 # show help
