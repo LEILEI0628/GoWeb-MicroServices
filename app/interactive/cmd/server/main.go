@@ -41,7 +41,11 @@ func InitKratosLogger() log.Logger {
 	return logger
 }
 func init() {
-	flag.StringVar(&flagconf, "conf", "app/interactive/configs/config.yaml", "config path, eg: -conf config.yaml")
+	//flag.StringVar(&flagconf, "conf", "app/interactive/configs/config.yaml", "config path, eg: -conf config.yaml")
+	flag.StringVar(&flagconf, "conf", "../../configs/config.yaml", "config path, eg: -conf config.yaml")
+	flag.StringVar(&Name, "name", "interactive", "Name is the name of the compiled software. eg: -name interactive")
+	flag.StringVar(&Version, "version", "1.0", "Version is the version of the compiled software. eg: -version 1.0")
+
 }
 
 func newApp(logger log.Logger, gs *grpc.Server, hs *http.Server) *kratos.App {

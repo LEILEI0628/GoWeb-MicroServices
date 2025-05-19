@@ -11,9 +11,6 @@ import (
 )
 
 func InitDB(conf *conf.Bootstrap, logger loggerx.Logger) *gorm.DB {
-	type Config struct {
-		DSN string `yaml:"dsn"` // ？此处DSN必须为大写
-	}
 	db, err := gorm.Open(mysql.Open(conf.GetData().GetDatabase().GetSource()), &gorm.Config{
 		Logger: glogger.New(gormLoggerFunc(logger.Debug), glogger.Config{
 			// 慢查询阈值：只有执行时间超过这个阈值才打印
